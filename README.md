@@ -10,7 +10,7 @@
 ## Learning Resources
 
 Recent history of deep learning from the fantastic podcast [Talking Machines](url=http://www.thetalkingmachines.com/blog/)
-History of Deep Learning from the Inside Out - [Part 1](url=http://www.thetalkingmachines.com/blog/2015/2/26/the-history-of-machine-learning-from-the-inside-out) and [Part 2](url=http://www.thetalkingmachines.com/blog/2015/3/13/how-machine-learning-got-where-it-is-and-the-future-of-the-field)
+History of Deep Learning from the Inside Out - [Part 1](http://www.thetalkingmachines.com/blog/2015/2/26/the-history-of-machine-learning-from-the-inside-out) and [Part 2](http://www.thetalkingmachines.com/blog/2015/3/13/how-machine-learning-got-where-it-is-and-the-future-of-the-field)
 
 #### Resources we've used in this study group:
 - Start with [Practical Deep Learning for Coders](url=http://course.fast.ai/) from [fast.ai](http://course.fast.ai)
