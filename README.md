@@ -28,6 +28,7 @@ History of Deep Learning from the Inside Out - [Part 1](http://www.thetalkingmac
 - [Tensorflow talks](https://github.com/apiltamang/tensorflow_rtp_materials)
 - [Apil speaks](https://youtu.be/R13oMsL_7hY) at PyData
 - DonkeyCar!
+- [Triangle Computer Vision and Image Processing Group](https://www.meetup.com/Triangle-Computer-Vision-and-Image-Processing-Group/)
 
 #### To Infinity and Beyond:
 As the number of deep learning tutorials and lists of lists approaches infinity, here are some good places to browse -
