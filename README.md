@@ -35,7 +35,9 @@ As the number of deep learning tutorials and lists of lists approaches infinity,
 - [A Guide to Deep Learning](http://yerevann.com/a-guide-to-deep-learning/)
 - and [Arxiv Sanity Preserver](http://www.arxiv-sanity.com/)
 
-
+#### Down the Deep Rabbit Hole
+- [The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/ElemStatLearn/)
+- [Deep Learning Book](http://www.deeplearningbook.org/)
 
 _________________________________________________________________________________
 
