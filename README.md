@@ -13,8 +13,8 @@ Recent history of deep learning from the fantastic podcast [Talking Machines](ur
 History of Deep Learning from the Inside Out - [Part 1](http://www.thetalkingmachines.com/blog/2015/2/26/the-history-of-machine-learning-from-the-inside-out) and [Part 2](http://www.thetalkingmachines.com/blog/2015/3/13/how-machine-learning-got-where-it-is-and-the-future-of-the-field)
 
 #### Resources we've used in this study group:
-- Start with [Practical Deep Learning for Coders](url=http://course.fast.ai/) from [fast.ai](http://course.fast.ai)
-- [Neural Networks and Deep Learning](url=http://course.fast.ai/) from Michael Nielsen
+- Start with [Practical Deep Learning for Coders](http://course.fast.ai/) from [fast.ai](http://course.fast.ai)
+- [Neural Networks and Deep Learning](http://course.fast.ai/) from Michael Nielsen
 - [Hands-on Machine Learning with Scikit-Learn & Tensorflow](http://shop.oreilly.com/product/0636920052289.do) by Aurelien Geron
 
 #### Courses worth looking into:
