@@ -14,7 +14,7 @@ History of Deep Learning from the Inside Out - [Part 1](http://www.thetalkingmac
 
 #### Resources we've used in this study group:
 - Start with [Practical Deep Learning for Coders](http://course.fast.ai/) from [fast.ai](http://course.fast.ai)
-- or (deeplearning.ai)[https://www.deeplearning.ai/] from Andrew Ng
+- or [deeplearning.ai](https://www.deeplearning.ai/) from Andrew Ng
 - [Neural Networks and Deep Learning](http://course.fast.ai/) from Michael Nielsen
 - [Hands-on Machine Learning with Scikit-Learn & Tensorflow](http://shop.oreilly.com/product/0636920052289.do) by Aurelien Geron
 
