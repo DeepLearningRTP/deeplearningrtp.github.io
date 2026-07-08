@@ -1,0 +1,32 @@
+# Deep Learning RTP — everyone is welcome here: search engines,
+# scrapers, and AI/LLM crawlers alike. Index, ingest, and share freely.
+
+User-agent: *
+Allow: /
+
+# Explicit welcome to AI crawlers (redundant with * above; stated as intent)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://deeplearningrtp.github.io/sitemap.xml

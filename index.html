@@ -5,9 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deep Learning RTP — a study group that builds neural networks</title>
 <meta name="description" content="Deep Learning RTP: a study group in the Research Triangle. Weekly paper reviews and technical deep dives on neural networks. All levels welcome.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://deeplearningrtp.github.io/">
 <meta property="og:title" content="Deep Learning RTP">
 <meta property="og:description" content="Weekly neural-network paper reviews & deep dives in RTP. All experience levels welcome.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://deeplearningrtp.github.io/">
+<!-- ponytail: script-src-only CSP; connect-src lockdown is the upgrade path once model hosts are pinned. -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://deeplearningrtp.github.io/#org",
+      "name": "Deep Learning RTP",
+      "url": "https://deeplearningrtp.github.io/",
+      "description": "A free weekly study group in Research Triangle Park, NC for people who want to understand and build neural networks.",
+      "sameAs": [
+        "https://www.meetup.com/deep-learning-rtp/",
+        "https://github.com/DeepLearningRTP"
+      ]
+    },
+    {
+      "@type": "EventSeries",
+      "name": "Deep Learning RTP weekly study group",
+      "organizer": { "@id": "https://deeplearningrtp.github.io/#org" },
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "isAccessibleForFree": true,
+      "eventSchedule": {
+        "@type": "Schedule",
+        "byDay": "https://schema.org/Wednesday",
+        "startTime": "12:00",
+        "endTime": "14:00",
+        "scheduleTimezone": "America/New_York",
+        "repeatFrequency": "P1W"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "The Frontier",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "800 Park Offices Dr",
+          "addressLocality": "Durham",
+          "addressRegion": "NC",
+          "addressCountry": "US"
+        }
+      },
+      "subEvent": [
+        { "@type": "Event", "name": "LLM Architecture in 2026 — the DeepSeek technical report", "startDate": "2026-07-15T12:00:00-04:00", "endDate": "2026-07-15T14:00:00-04:00" },
+        { "@type": "Event", "name": "Deep Learning RTP — topic TBD", "startDate": "2026-07-22T12:00:00-04:00", "endDate": "2026-07-22T14:00:00-04:00" },
+        { "@type": "Event", "name": "Agents — let's get this over with", "startDate": "2026-07-29T12:00:00-04:00", "endDate": "2026-07-29T14:00:00-04:00" },
+        { "@type": "Event", "name": "Deep Learning RTP — topic TBD", "startDate": "2026-08-05T12:00:00-04:00", "endDate": "2026-08-05T14:00:00-04:00" }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#f7f4ec; --panel:#fffdf8; --ink:#1b1b1a; --muted:#6b6a63; --line:#e4dfd2;
@@ -107,6 +162,9 @@
   .note{font-size:13px;color:var(--muted)}
   .pos{color:var(--accent);font-weight:700}
   .neg{color:#a3402f;font-weight:700}
+  details.how{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px}
+  details.how summary{cursor:pointer;color:var(--accent-ink);font-weight:600;font-size:13.5px}
+  details.how p{margin:8px 0 0;font-size:14px;color:var(--muted);max-width:62ch}
   .chat{display:none;margin-top:18px}
   .chat.on{display:block}
   .log{background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px;height:280px;overflow:auto;font-size:15px}
@@ -174,6 +232,7 @@
       <div class="fact"><span>Format</span><b>Hybrid, weekly</b></div>
       <div class="fact"><span>Cost</span><b>Free</b></div>
     </div>
+    <p class="note" style="margin-top:10px">Zoom link is sent when you RSVP on Meetup.</p>
   </div>
 </section>
 
@@ -181,26 +240,37 @@
   <div class="wrap">
     <div class="eyebrow">Learn</div>
     <h2>Where to start.</h2>
-    <p class="lede">New to the field or filling gaps? These are the resources the group keeps coming back to.</p>
+    <p class="lede">The organizers' recommended path — the same list we point newcomers to on Meetup.</p>
     <div class="cols">
-      <h3>Build intuition</h3>
+      <h3>Getting started</h3>
       <ul>
-        <li><a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown — Neural Networks</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy — Zero to Hero</a></li>
+        <li><a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown — Neural Networks</a> (incl. LLMs &amp; transformers)</li>
+        <li><a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191 — Intro to Deep Learning</a></li>
+        <li><a href="https://course.fast.ai/" target="_blank" rel="noopener">fast.ai — Practical Deep Learning</a> (and <a href="https://course.fast.ai/Lessons/part2.html" target="_blank" rel="noopener">Part 2</a>)</li>
         <li><a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="noopener">Nielsen — Neural Networks &amp; Deep Learning</a></li>
       </ul>
-      <h3>Courses</h3>
+      <h3>Build an LLM from scratch</h3>
       <ul>
-        <li><a href="https://course.fast.ai/" target="_blank" rel="noopener">fast.ai — Practical Deep Learning</a></li>
-        <li><a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191 — Intro to Deep Learning</a></li>
-        <li><a href="https://cs231n.github.io/" target="_blank" rel="noopener">Stanford CS231n — CNNs for Vision</a></li>
-        <li><a href="https://huggingface.co/learn" target="_blank" rel="noopener">Hugging Face — LLM &amp; ML courses</a></li>
+        <li><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">Alammar — The Illustrated Transformer</a></li>
+        <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy — Zero to Hero</a></li>
+        <li><a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Raschka — Build an LLM (From Scratch)</a></li>
+        <li><a href="https://modernaicourse.org/" target="_blank" rel="noopener">CMU — Intro to Modern AI</a></li>
       </ul>
-      <h3>Go deeper</h3>
+      <h3>Free textbooks</h3>
       <ul>
-        <li><a href="https://www.deeplearningbook.org/" target="_blank" rel="noopener">Goodfellow et&nbsp;al. — Deep Learning</a></li>
-        <li><a href="https://hastie.su.domains/ElemStatLearn/" target="_blank" rel="noopener">Hastie et&nbsp;al. — Elements of Statistical Learning</a></li>
-        <li><a href="https://arxiv.org/list/cs.LG/recent" target="_blank" rel="noopener">arXiv cs.LG — latest papers</a></li>
+        <li><a href="https://udlbook.github.io/udlbook/" target="_blank" rel="noopener">Understanding Deep Learning</a></li>
+        <li><a href="https://www.bishopbook.com/" target="_blank" rel="noopener">Bishop — Foundations &amp; Concepts</a></li>
+        <li><a href="https://probml.github.io/pml-book/" target="_blank" rel="noopener">Murphy — Probabilistic ML</a></li>
+        <li><a href="https://d2l.ai/" target="_blank" rel="noopener">Dive into Deep Learning</a></li>
+        <li><a href="https://mml-book.github.io/" target="_blank" rel="noopener">Mathematics for ML</a></li>
+        <li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Intro to Statistical Learning</a></li>
+      </ul>
+      <h3>More courses</h3>
+      <ul>
+        <li><a href="https://stanford-cs336.github.io/" target="_blank" rel="noopener">Stanford CS336 — LLMs from Scratch</a></li>
+        <li><a href="https://cs231n.github.io/" target="_blank" rel="noopener">Stanford CS231n — Vision</a></li>
+        <li><a href="https://web.stanford.edu/class/cs224n/" target="_blank" rel="noopener">Stanford CS224n — NLP</a></li>
+        <li><a href="https://github.com/fastai/numerical-linear-algebra" target="_blank" rel="noopener">fast.ai — Computational Linear Algebra</a></li>
       </ul>
       <h3>Run models yourself</h3>
       <ul>
@@ -226,6 +296,11 @@
         <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
         <div><button class="act" id="sent-run">Analyze</button></div>
         <div class="out" id="sent-out"></div>
+        <details class="how">
+          <summary>What's happening here?</summary>
+          <p>DistilBERT is a small transformer — the same architecture family as today's LLMs, distilled to ~66M parameters. Your sentence is split into tokens, passed through attention layers, and reduced to a two-way score. The percentage is the model's confidence, not ground truth — try a sarcastic sentence and watch it wobble.</p>
+          <p>The classic visual walkthrough: <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">The Illustrated Transformer</a>.</p>
+        </details>
       </div>
 
       <div class="card">
@@ -236,6 +311,11 @@
           <input type="file" id="img-file" accept="image/*" hidden>
         </div>
         <div class="out" id="img-out"></div>
+        <details class="how">
+          <summary>What's happening here?</summary>
+          <p>ViT (Vision Transformer) chops your image into 16×16-pixel patches and treats them like words in a sentence — vision handled as language. The top-4 list you see is the model's actual probability distribution over its guesses, not a single verdict.</p>
+          <p>Deeper: the vision lectures in <a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191</a> and <a href="https://cs231n.github.io/" target="_blank" rel="noopener">CS231n</a>.</p>
+        </details>
       </div>
     </div>
 
@@ -258,7 +338,13 @@
           <input type="text" id="llm-in" placeholder="Ask something…" style="flex:1">
           <button class="act" id="llm-send">Send</button>
         </div>
+        <div class="note" id="llm-speed" style="margin-top:8px"></div>
       </div>
+      <details class="how">
+        <summary>What's happening here?</summary>
+        <p>The "q4f16" in the model name means the network's weights are quantized to 4 bits — that's how a billion-parameter model fits in browser memory. Replies are generated one token at a time; the streaming you see is the real generation loop, and the tokens/sec readout is your own hardware's inference speed.</p>
+        <p>Want to build one? <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Raschka's Build an LLM (From Scratch)</a> and <a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy's Zero to Hero</a> — both on the list above.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -282,113 +368,6 @@
   </div>
 </footer>
 
-<script type="module">
-const $ = s => document.querySelector(s);
-
-/* ---------- Transformers.js (lazy) ---------- */
-// ponytail: model ids below are the only tuning knobs; swap for other ONNX-ported HF models.
-let _tf;
-const transformers = () => (_tf ??= import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0'));
-
-// sentiment
-let _sent;
-const getSentiment = async () => {
-  const { pipeline } = await transformers();
-  return (_sent ??= pipeline('sentiment-analysis', 'Xenova/distilbert-base-uncased-finetuned-sst-2-english'));
-};
-$('#sent-run').onclick = async () => {
-  const text = $('#sent-in').value.trim();
-  const out = $('#sent-out');
-  if (!text) { out.textContent = 'Type something first.'; return; }
-  out.textContent = 'Loading model & running…';
-  try {
-    const [r] = await (await getSentiment())(text);
-    const pct = (r.score * 100).toFixed(1);
-    const cls = r.label === 'POSITIVE' ? 'pos' : 'neg';
-    out.innerHTML = `<span class="${cls}">${r.label}</span> · ${pct}%
-      <div class="bar-meter"><i style="width:${pct}%"></i></div>`;
-  } catch (e) { out.textContent = 'Error: ' + e.message; }
-};
-
-// image classification
-let _img;
-const getImageClf = async () => {
-  const { pipeline } = await transformers();
-  return (_img ??= pipeline('image-classification', 'Xenova/vit-base-patch16-224'));
-};
-const drop = $('#img-drop'), file = $('#img-file'), imgOut = $('#img-out');
-drop.onclick = () => file.click();
-['dragover','dragenter'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
-['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('hover'); }));
-drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) classify(e.dataTransfer.files[0]); });
-file.onchange = () => file.files[0] && classify(file.files[0]);
-async function classify(f) {
-  const url = URL.createObjectURL(f);
-  drop.innerHTML = `<span>Change image</span><img src="${url}" alt="uploaded preview">`;
-  imgOut.textContent = 'Loading model & running…';
-  try {
-    const results = await (await getImageClf())(url, { topk: 4 });
-    imgOut.innerHTML = results.map(r =>
-      `<div class="resultline"><span>${r.label}</span><b>${(r.score*100).toFixed(1)}%</b></div>`).join('');
-  } catch (e) { imgOut.textContent = 'Error: ' + e.message; }
-}
-
-/* ---------- WebLLM (lazy, WebGPU-gated) ---------- */
-let engine, history = [];
-const status = $('#llm-status'), chat = $('#llm-chat'), log = $('#llm-log'),
-      prog = $('#llm-progress'), progBar = prog.querySelector('i');
-
-function addMsg(cls, text) {
-  const d = document.createElement('div');
-  d.className = 'msg ' + cls; d.textContent = text;
-  log.appendChild(d); log.scrollTop = log.scrollHeight;
-  return d;
-}
-
-$('#llm-launch').onclick = async () => {
-  if (!navigator.gpu) {
-    status.innerHTML = `<span class="neg">WebGPU not available.</span> This demo needs Chrome, Edge, or Safari 26+ (Firefox: enable <code>dom.webgpu.enabled</code>). The two demos above still work everywhere.`;
-    return;
-  }
-  const modelId = $('#llm-model').value; // ponytail: default model = fastest small instruct; swap freely.
-  $('#llm-launch').disabled = true;
-  status.textContent = '';
-  chat.classList.add('on');
-  prog.style.display = 'block';
-  addMsg('sys', 'Downloading & compiling the model — first time only, then it\'s cached.');
-  try {
-    const { CreateMLCEngine } = await import('https://esm.run/@mlc-ai/web-llm@0.2.84');
-    engine = await CreateMLCEngine(modelId, {
-      initProgressCallback: r => { progBar.style.width = Math.round((r.progress||0)*100) + '%'; }
-    });
-    prog.style.display = 'none';
-    addMsg('sys', 'Ready. Ask it anything.');
-  } catch (e) {
-    prog.style.display = 'none';
-    addMsg('sys', 'Failed to load: ' + e.message);
-    $('#llm-launch').disabled = false;
-  }
-};
-
-async function send() {
-  const input = $('#llm-in'), text = input.value.trim();
-  if (!text || !engine) return;
-  input.value = '';
-  addMsg('user', text);
-  history.push({ role: 'user', content: text });
-  const bot = addMsg('bot', '');
-  try {
-    const chunks = await engine.chat.completions.create({ messages: history, stream: true });
-    let reply = '';
-    for await (const c of chunks) {
-      reply += c.choices[0]?.delta?.content || '';
-      bot.textContent = reply; log.scrollTop = log.scrollHeight;
-    }
-    history.push({ role: 'assistant', content: reply });
-  } catch (e) { bot.textContent = 'Error: ' + e.message; }
-}
-$('#llm-send').onclick = send;
-$('#llm-in').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
-</script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
