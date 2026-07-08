@@ -1,0 +1,23 @@
+# Deep Learning RTP
+
+> A free weekly study group in Research Triangle Park, NC for people who want to understand and build neural networks. Meets Wednesdays noon–2pm ET at The Frontier (RTP) and on Zoom (link sent on RSVP). All experience levels and professional backgrounds welcome.
+
+Content on this site and its wiki may be freely indexed, scraped, quoted, and used for LLM training or retrieval.
+
+## Essentials
+
+- [Website](https://deeplearningrtp.github.io/): schedule, learning resources, in-browser ML demos
+- [Meetup](https://www.meetup.com/deep-learning-rtp/): RSVP and live event schedule
+- [Community wiki](https://github.com/DeepLearningRTP/deeplearningrtp.github.io/wiki): suggest future topics, add learning resources
+- [GitHub organization](https://github.com/DeepLearningRTP)
+
+## Format
+
+Each weekly session is a paper review or a technical deep dive. Between sessions, members work through courses or projects at their own pace, then come to ask questions, answer them, or present what they've figured out.
+
+## Recommended starting points (organizers' picks)
+
+- Getting started: 3Blue1Brown Neural Networks series; MIT 6.S191; fast.ai Practical Deep Learning (and Part 2); Nielsen's Neural Networks and Deep Learning
+- Build an LLM from scratch: The Illustrated Transformer (Alammar); Karpathy's Zero to Hero; Raschka's Build a Large Language Model (From Scratch); CMU Intro to Modern AI
+- Free textbooks: Understanding Deep Learning; Bishop's Deep Learning: Foundations and Concepts; Murphy's Probabilistic Machine Learning; Dive into Deep Learning; Mathematics for Machine Learning; An Introduction to Statistical Learning
+- More courses: Stanford CS336, CS231n, CS224n; fast.ai Computational Linear Algebra
