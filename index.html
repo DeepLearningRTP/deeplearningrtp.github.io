@@ -1,249 +1,178 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deep Learning RTP — a study group that builds neural networks</title>
-<meta name="description" content="Deep Learning RTP: a 1,500+ member study group in the Research Triangle. Weekly paper reviews and deep dives. Try ML models running entirely in your browser.">
+<meta name="description" content="Deep Learning RTP: a study group in the Research Triangle. Weekly paper reviews and technical deep dives on neural networks. All levels welcome.">
 <meta property="og:title" content="Deep Learning RTP">
-<meta property="og:description" content="Weekly neural-network paper reviews & deep dives in RTP. Run ML models in your browser — no server, no API keys.">
+<meta property="og:description" content="Weekly neural-network paper reviews & deep dives in RTP. All experience levels welcome.">
 <meta property="og:type" content="website">
 <style>
   :root{
-    --bg:#07090f; --bg-soft:#0d1119; --card:#111624; --card-2:#161d2e;
-    --text:#e8ecf5; --muted:#9aa6bd; --line:#222b40;
-    --accent:#5eead4; --accent-2:#818cf8; --accent-3:#f472b6;
-    --pos:#34d399; --neg:#fb7185;
-    --grad:linear-gradient(120deg,#5eead4,#818cf8 55%,#f472b6);
-    --shadow:0 10px 40px -12px rgba(0,0,0,.6);
-    --radius:16px;
-  }
-  :root[data-theme="light"]{
-    --bg:#f7f8fc; --bg-soft:#eef1f8; --card:#ffffff; --card-2:#f3f5fb;
-    --text:#141a26; --muted:#586178; --line:#e2e6f0;
-    --accent:#0d9488; --accent-2:#4f46e5; --accent-3:#db2777;
-    --shadow:0 10px 40px -18px rgba(20,26,38,.25);
+    --bg:#f7f4ec; --panel:#fffdf8; --ink:#1b1b1a; --muted:#6b6a63; --line:#e4dfd2;
+    --accent:#0f5f57; --accent-ink:#0a4b44;
+    --serif:ui-serif,Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --col:760px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
-  body{
-    margin:0;background:var(--bg);color:var(--text);
-    font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  code,kbd,.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-  h1,h2,h3{line-height:1.15;letter-spacing:-.02em;margin:0 0 .4em}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-  section{padding:72px 0;border-top:1px solid var(--line)}
-  .eyebrow{font:600 12px/1 ui-monospace,monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--col);margin:0 auto;padding:0 24px}
+  a{color:var(--accent-ink);text-underline-offset:2px;text-decoration-thickness:1px}
+  a:hover{color:var(--accent)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;letter-spacing:-.01em;margin:0}
   .muted{color:var(--muted)}
-  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mono{font-family:var(--mono)}
 
-  /* nav */
-  header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-    background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
-  .nav .wrap{display:flex;align-items:center;gap:20px;padding-top:14px;padding-bottom:14px}
-  .brand{font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-  .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--grad);box-shadow:0 0 16px var(--accent)}
-  .nav nav{margin-left:auto;display:flex;gap:22px}
-  .nav nav a{color:var(--muted);font-size:14px}
-  .nav nav a:hover{color:var(--text);text-decoration:none}
-  .iconbtn{background:var(--card);border:1px solid var(--line);color:var(--text);
-    width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:16px;display:grid;place-items:center}
-  .iconbtn:hover{border-color:var(--accent)}
-  @media(max-width:720px){.nav nav{display:none}}
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .eyebrow{font:600 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h2{font-size:clamp(26px,4vw,34px);margin-bottom:6px}
+  .lede{color:var(--muted);max-width:60ch;margin:8px 0 0}
+
+  /* top bar */
+  header.bar{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 92%,transparent);
+    position:sticky;top:0;z-index:20;backdrop-filter:blur(6px)}
+  .bar .wrap{display:flex;align-items:center;gap:24px;padding:16px 24px}
+  .bar .name{font-family:var(--serif);font-weight:600;font-size:18px}
+  .bar nav{margin-left:auto;display:flex;gap:22px}
+  .bar nav a{color:var(--muted);font-size:14px;text-decoration:none}
+  .bar nav a:hover{color:var(--ink)}
+  @media(max-width:640px){.bar nav{display:none}}
 
   /* hero */
-  .hero{position:relative;padding:96px 0 84px;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:-40% -10% auto;height:640px;
-    background:radial-gradient(60% 60% at 30% 20%,rgba(94,234,212,.16),transparent 60%),
-               radial-gradient(50% 50% at 80% 10%,rgba(129,140,248,.18),transparent 60%);
-    filter:blur(6px);z-index:0;pointer-events:none}
-  .hero .wrap{position:relative;z-index:1}
-  .hero h1{font-size:clamp(38px,7vw,68px);font-weight:850}
-  .hero p.lead{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:620px;margin:.4em 0 0}
-  .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--line);
-    border-radius:999px;background:var(--card);font-size:13px;color:var(--muted);margin-bottom:22px}
-  .badge b{color:var(--accent)}
-  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;font-weight:600;
-    border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;font-size:15px}
-  .btn:hover{text-decoration:none;border-color:var(--accent);transform:translateY(-1px);transition:.15s}
-  .btn.primary{background:var(--grad);color:#06121a;border:none}
-  .btn.primary:hover{opacity:.94}
-  .stats{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
-  .stat{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
-  .stat .n{font-size:30px;font-weight:800;letter-spacing:-.03em}
-  .stat .l{color:var(--muted);font-size:13px;margin-top:2px}
+  .hero{padding:80px 0 60px;border-top:none}
+  .hero h1{font-size:clamp(38px,7vw,60px);line-height:1.08;letter-spacing:-.02em}
+  .hero .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .hero p.sub{font-size:20px;color:var(--muted);max-width:52ch;margin:20px 0 0}
+  .meetline{margin-top:26px;font-size:16px;color:var(--ink)}
+  .meetline b{font-weight:600}
+  .btn{display:inline-block;margin-top:28px;padding:12px 22px;background:var(--accent);color:#fff;
+    border-radius:4px;font-weight:600;font-size:15px;text-decoration:none}
+  .btn:hover{background:var(--accent-ink);color:#fff}
+  .btn.ghost{background:transparent;color:var(--accent-ink);border:1px solid var(--line);margin-left:10px}
+  .btn.ghost:hover{border-color:var(--accent);background:transparent}
 
-  /* generic card */
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  /* meetings */
+  .evt{display:flex;gap:20px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line)}
+  .evt:first-of-type{border-top:1px solid var(--line)}
+  .evt .date{font:600 13px/1.3 var(--mono);color:var(--accent);min-width:74px;letter-spacing:.02em}
+  .evt .t{font-size:16px}
+  .aside{margin-top:20px;font-size:15px;color:var(--muted)}
 
-  /* demo */
-  .demo-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-  .pill{font:600 11px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;
-    padding:5px 9px;border-radius:7px;background:var(--card-2);border:1px solid var(--line);color:var(--muted)}
-  textarea,input[type=text]{width:100%;background:var(--bg-soft);border:1px solid var(--line);color:var(--text);
-    border-radius:10px;padding:12px 14px;font:inherit;resize:vertical}
-  textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
-  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-  .out{margin-top:16px;min-height:24px;font-size:15px}
-  .bar{height:10px;border-radius:6px;background:var(--card-2);overflow:hidden;margin-top:6px}
-  .bar > i{display:block;height:100%;background:var(--grad)}
-  .resultline{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  /* about */
+  .about p{max-width:64ch}
+  .facts{margin-top:26px;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:6px 20px;max-width:460px}
+  .fact{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .fact:last-child{border-bottom:none}
+  .fact span{color:var(--muted)}
+  .fact b{font-weight:600}
+
+  /* resources */
+  .cols{columns:2;column-gap:44px;margin-top:6px}
+  @media(max-width:600px){.cols{columns:1}}
+  .cols h3{font-size:15px;font-family:var(--sans);font-weight:700;color:var(--accent);letter-spacing:.02em;
+    margin:20px 0 6px;break-after:avoid}
+  .cols ul{margin:0 0 4px;padding-left:18px}
+  .cols li{margin:6px 0;break-inside:avoid;font-size:15.5px}
+  .contribute{margin-top:26px;font-size:15px}
+
+  /* demos */
+  .demos .lede{margin-bottom:28px}
+  .card{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:22px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .tag{font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .card h3{font-family:var(--sans);font-size:17px;font-weight:700;margin:8px 0 12px}
+  textarea,input[type=text]{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);
+    border-radius:5px;padding:11px 13px;font:inherit;font-size:15px;resize:vertical}
+  textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:0}
+  .act{display:inline-block;margin-top:12px;padding:9px 18px;background:var(--accent);color:#fff;border:none;
+    border-radius:4px;font:600 14px var(--sans);cursor:pointer}
+  .act:hover{background:var(--accent-ink)}
+  .act:disabled{opacity:.5;cursor:default}
+  select{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:5px;padding:9px;font:inherit;font-size:15px}
+  .out{margin-top:14px;min-height:20px;font-size:15px}
+  .bar-meter{height:8px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:6px}
+  .bar-meter>i{display:block;height:100%;background:var(--accent)}
+  .resultline{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--line)}
   .resultline b{font-variant-numeric:tabular-nums}
-  .drop{border:1.5px dashed var(--line);border-radius:12px;padding:26px;text-align:center;color:var(--muted);cursor:pointer;background:var(--bg-soft)}
-  .drop.hover{border-color:var(--accent);color:var(--text)}
-  .drop img{max-width:100%;max-height:220px;border-radius:10px;margin-top:12px}
+  .drop{border:1.5px dashed var(--line);border-radius:6px;padding:24px;text-align:center;color:var(--muted);cursor:pointer;background:#fff}
+  .drop.hover{border-color:var(--accent);color:var(--ink)}
+  .drop img{max-width:100%;max-height:200px;border-radius:5px;margin-top:12px}
+  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
   .note{font-size:13px;color:var(--muted)}
-  .tag-pos{color:var(--pos);font-weight:700}
-  .tag-neg{color:var(--neg);font-weight:700}
-
-  /* chat */
-  .chat{display:none;margin-top:20px}
+  .pos{color:var(--accent);font-weight:700}
+  .neg{color:#a3402f;font-weight:700}
+  .chat{display:none;margin-top:18px}
   .chat.on{display:block}
-  .log{background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:14px;height:300px;overflow:auto;font-size:15px}
-  .msg{padding:8px 12px;border-radius:10px;margin:8px 0;max-width:85%;white-space:pre-wrap;word-wrap:break-word}
-  .msg.user{background:var(--accent-2);color:#fff;margin-left:auto}
-  .msg.bot{background:var(--card-2);border:1px solid var(--line)}
+  .log{background:#fff;border:1px solid var(--line);border-radius:6px;padding:12px;height:280px;overflow:auto;font-size:15px}
+  .msg{padding:8px 12px;border-radius:6px;margin:8px 0;max-width:88%;white-space:pre-wrap;word-wrap:break-word}
+  .msg.user{background:var(--accent);color:#fff;margin-left:auto}
+  .msg.bot{background:var(--bg);border:1px solid var(--line)}
   .msg.sys{background:transparent;color:var(--muted);font-size:13px;text-align:center;max-width:100%}
-  select{background:var(--bg-soft);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px;font:inherit}
 
-  /* events + resources */
-  .evt{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
-  .evt .date{font:700 13px/1.2 ui-monospace,monospace;color:var(--accent);min-width:78px}
-  .evt .t{font-weight:600}
-  .reslist{columns:2;column-gap:32px}
-  @media(max-width:640px){.reslist{columns:1}}
-  .reslist h3{margin-top:18px;font-size:15px;color:var(--accent);break-after:avoid}
-  .reslist ul{margin:0 0 8px;padding-left:18px}
-  .reslist li{margin:5px 0;break-inside:avoid}
-
-  footer{padding:48px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+  footer{padding:52px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
 
-<header class="nav">
+<header class="bar">
   <div class="wrap">
-    <span class="brand"><span class="dot"></span>Deep Learning RTP</span>
+    <span class="name">Deep Learning RTP</span>
     <nav>
-      <a href="#playground">Playground</a>
+      <a href="#meetings">Meetings</a>
       <a href="#about">About</a>
-      <a href="#events">Events</a>
       <a href="#resources">Resources</a>
+      <a href="#demos">Demos</a>
     </nav>
-    <button class="iconbtn" id="theme-toggle" title="Toggle light/dark" aria-label="Toggle color theme">◐</button>
   </div>
 </header>
 
 <div class="hero">
   <div class="wrap">
-    <span class="badge">📍 Research Triangle Park, NC · <b>weekly, hybrid</b></span>
-    <h1>We <span class="grad">understand and build</span><br>neural networks.</h1>
-    <p class="lead">A study group for anyone who wants to go deep on deep learning. Every week: a paper review or a technical deep dive. All experience levels welcome.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://www.meetup.com/deep-learning-rtp/" target="_blank" rel="noopener">Join on Meetup →</a>
-      <a class="btn" href="#playground">Run a model in your browser ↓</a>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="n">1,592</div><div class="l">members</div></div>
-      <div class="stat"><div class="n">402</div><div class="l">sessions run</div></div>
-      <div class="stat"><div class="n">4.9★</div><div class="l">from 323 ratings</div></div>
-      <div class="stat"><div class="n">Wed</div><div class="l">noon–2pm, every week</div></div>
+    <div class="kicker">Research Triangle Park, NC</div>
+    <h1>We understand and build neural networks.</h1>
+    <p class="sub">A weekly study group. Each session is a paper review or a technical deep dive — come to ask questions, answer them, or present what you've figured out. All experience levels welcome.</p>
+    <div class="meetline">🗓 <b>Wednesdays, noon–2pm ET</b> · The Frontier, RTP + Zoom · free</div>
+    <div>
+      <a class="btn" href="https://www.meetup.com/deep-learning-rtp/" target="_blank" rel="noopener">Join on Meetup</a>
+      <a class="btn ghost" href="#meetings">See what's next</a>
     </div>
   </div>
 </div>
 
-<section id="playground">
+<section id="meetings">
   <div class="wrap">
-    <div class="eyebrow">Live demo · nothing leaves your device</div>
-    <h2>Machine learning, running <span class="grad">in this tab</span>.</h2>
-    <p class="muted" style="max-width:660px">No server. No API keys. No uploads. The models below download to your browser and run on your own CPU/GPU — the same client-side inference the group digs into on Wednesdays. Click a demo to load it (first run fetches the model).</p>
-
-    <div class="grid2" style="margin-top:26px">
-      <!-- Sentiment -->
-      <div class="card">
-        <div class="demo-head"><span class="pill">Transformers.js</span><span class="note">DistilBERT · ~65MB</span></div>
-        <h3>Sentiment analysis</h3>
-        <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
-        <div class="row"><button class="btn primary" id="sent-run">Analyze</button></div>
-        <div class="out" id="sent-out"></div>
-      </div>
-
-      <!-- Image classification -->
-      <div class="card">
-        <div class="demo-head"><span class="pill">Transformers.js</span><span class="note">ViT · ~90MB</span></div>
-        <h3>Image classification</h3>
-        <div class="drop" id="img-drop">
-          <span>Drop an image or click to upload</span>
-          <input type="file" id="img-file" accept="image/*" hidden>
-        </div>
-        <div class="out" id="img-out"></div>
-      </div>
-    </div>
-
-    <!-- LLM chat -->
-    <div class="card" style="margin-top:20px">
-      <div class="demo-head"><span class="pill">WebLLM · WebGPU</span><span class="note">a full LLM, on your GPU</span></div>
-      <h3>Chat with a language model — 100% local</h3>
-      <p class="muted" id="llm-intro">Runs a small instruct model entirely on your machine via WebGPU. First launch downloads the weights (~400MB–900MB, then cached). Zero servers, zero API keys.</p>
-      <div class="row">
-        <select id="llm-model">
-          <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5 0.5B · fastest (~400MB)</option>
-          <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 1B · smarter (~900MB)</option>
-        </select>
-        <button class="btn primary" id="llm-launch">Launch local LLM →</button>
-      </div>
-      <div id="llm-status" class="out"></div>
-      <div class="chat" id="llm-chat">
-        <div class="bar" id="llm-progress" style="display:none"><i style="width:0"></i></div>
-        <div class="log" id="llm-log"></div>
-        <div class="row">
-          <input type="text" id="llm-in" placeholder="Ask something…" style="flex:1">
-          <button class="btn primary" id="llm-send">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="wrap">
-    <div class="eyebrow">About</div>
-    <h2>A study group, not a lecture series.</h2>
-    <div class="grid2" style="margin-top:20px">
-      <div>
-        <p>Deep Learning RTP is for people who want to <b>understand and build</b> neural networks. Each weekly session is a paper review or a technical deep dive. Between sessions, work through a course or project at your own pace — then come to ask questions, answer them, or present what you've figured out.</p>
-        <p>All experience levels and professional backgrounds are welcome.</p>
-      </div>
-      <div class="card">
-        <div class="resultline"><span class="muted">When</span><b>Wednesdays, 12–2pm ET</b></div>
-        <div class="resultline"><span class="muted">Where</span><b>The Frontier, RTP + Zoom</b></div>
-        <div class="resultline"><span class="muted">Format</span><b>Hybrid, weekly</b></div>
-        <div class="resultline" style="border:none"><span class="muted">Cost</span><b>Free</b></div>
-        <div class="row"><a class="btn primary" href="https://www.meetup.com/deep-learning-rtp/" target="_blank" rel="noopener">RSVP on Meetup</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="events">
-  <div class="wrap">
-    <div class="eyebrow">Upcoming</div>
+    <div class="eyebrow">Next meetings</div>
     <h2>What we're covering next.</h2>
-    <p class="muted">A snapshot — the <a href="https://www.meetup.com/deep-learning-rtp/events/" target="_blank" rel="noopener">Meetup events page</a> always has the live schedule and RSVPs.</p>
-    <div style="margin-top:18px">
+    <div style="margin-top:22px">
       <div class="evt"><span class="date">JUL 15</span><span class="t">LLM Architecture in 2026 — the DeepSeek technical report</span></div>
       <div class="evt"><span class="date">JUL 22</span><span class="t">Deep Learning RTP — topic TBD</span></div>
       <div class="evt"><span class="date">JUL 29</span><span class="t">Agents — let's get this over with</span></div>
       <div class="evt"><span class="date">AUG 05</span><span class="t">Deep Learning RTP — topic TBD</span></div>
+    </div>
+    <p class="aside">Live schedule and RSVPs on <a href="https://www.meetup.com/deep-learning-rtp/events/" target="_blank" rel="noopener">Meetup</a>. Have an idea? <a href="https://github.com/DeepLearningRTP/deeplearningrtp.github.io/wiki" target="_blank" rel="noopener">Suggest a future topic on the wiki →</a></p>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2>A study group, not a lecture series.</h2>
+    <p class="lede" style="margin-bottom:18px">Deep Learning RTP is for people who want to <b>understand and build</b> neural networks.</p>
+    <p>Each weekly session is a paper review or a technical deep dive. Between sessions, work through a course or project at your own pace — then come to ask questions, answer them, or present what you've figured out. All experience levels and professional backgrounds are welcome.</p>
+    <div class="facts">
+      <div class="fact"><span>When</span><b>Wednesdays, 12–2pm ET</b></div>
+      <div class="fact"><span>Where</span><b>The Frontier, RTP + Zoom</b></div>
+      <div class="fact"><span>Format</span><b>Hybrid, weekly</b></div>
+      <div class="fact"><span>Cost</span><b>Free</b></div>
     </div>
   </div>
 </section>
@@ -252,12 +181,12 @@
   <div class="wrap">
     <div class="eyebrow">Learn</div>
     <h2>Where to start.</h2>
-    <p class="muted">New to the field or filling gaps? These are the resources the group keeps coming back to.</p>
-    <div class="reslist" style="margin-top:18px">
+    <p class="lede">New to the field or filling gaps? These are the resources the group keeps coming back to.</p>
+    <div class="cols">
       <h3>Build intuition</h3>
       <ul>
         <li><a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown — Neural Networks</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy — Neural Networks: Zero to Hero</a></li>
+        <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy — Zero to Hero</a></li>
         <li><a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="noopener">Nielsen — Neural Networks &amp; Deep Learning</a></li>
       </ul>
       <h3>Courses</h3>
@@ -280,6 +209,57 @@
         <li><a href="https://pytorch.org/tutorials/" target="_blank" rel="noopener">PyTorch tutorials</a></li>
       </ul>
     </div>
+    <p class="contribute">Got a resource we're missing? <a href="https://github.com/DeepLearningRTP/deeplearningrtp.github.io/wiki" target="_blank" rel="noopener">Add it on the community wiki →</a></p>
+  </div>
+</section>
+
+<section id="demos" class="demos">
+  <div class="wrap">
+    <div class="eyebrow">Live demo · nothing leaves your device</div>
+    <h2>Machine learning, running in this tab.</h2>
+    <p class="lede">No server, no API keys, no uploads. The models below download to your browser and run on your own hardware — the client-side inference the group digs into. Click a demo to load it (first run fetches the model).</p>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="tag">Transformers.js · DistilBERT ~65MB</div>
+        <h3>Sentiment analysis</h3>
+        <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
+        <div><button class="act" id="sent-run">Analyze</button></div>
+        <div class="out" id="sent-out"></div>
+      </div>
+
+      <div class="card">
+        <div class="tag">Transformers.js · ViT ~90MB</div>
+        <h3>Image classification</h3>
+        <div class="drop" id="img-drop">
+          <span>Drop an image or click to upload</span>
+          <input type="file" id="img-file" accept="image/*" hidden>
+        </div>
+        <div class="out" id="img-out"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <div class="tag">WebLLM · WebGPU</div>
+      <h3>Chat with a language model — 100% local</h3>
+      <p class="note" style="margin:0 0 12px">Runs a small instruct model entirely on your machine via WebGPU. First launch downloads the weights (~400MB–900MB, then cached). Zero servers, zero API keys.</p>
+      <div class="row">
+        <select id="llm-model">
+          <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5 0.5B · fastest (~400MB)</option>
+          <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 1B · smarter (~900MB)</option>
+        </select>
+        <button class="act" id="llm-launch">Launch local LLM →</button>
+      </div>
+      <div id="llm-status" class="out"></div>
+      <div class="chat" id="llm-chat">
+        <div class="bar-meter" id="llm-progress" style="display:none"><i style="width:0"></i></div>
+        <div class="log" id="llm-log"></div>
+        <div class="row">
+          <input type="text" id="llm-in" placeholder="Ask something…" style="flex:1">
+          <button class="act" id="llm-send">Send</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -287,7 +267,7 @@
   <div class="wrap">
     <div class="eyebrow">Code of conduct</div>
     <h2>Be kind. Be open.</h2>
-    <p class="muted" style="max-width:720px">We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct" target="_blank" rel="noopener">Recurse Center social rules</a>. Harassment isn't tolerated; organizers may take any action they deem appropriate. Deep Learning RTP is a fully open, public forum — assume no privacy, and please don't share confidential, proprietary, or sensitive material. The group isn't liable for content shared by individual members, visitors, or speakers.</p>
+    <p class="lede" style="max-width:66ch">We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct" target="_blank" rel="noopener">Recurse Center social rules</a>. Harassment isn't tolerated; organizers may take any action they deem appropriate. Deep Learning RTP is a fully open, public forum — assume no privacy, and please don't share confidential, proprietary, or sensitive material. The group isn't liable for content shared by individual members, visitors, or speakers.</p>
   </div>
 </section>
 
@@ -296,6 +276,7 @@
     <span>© Deep Learning RTP · Research Triangle Park, NC</span>
     <span>
       <a href="https://www.meetup.com/deep-learning-rtp/" target="_blank" rel="noopener">Meetup</a> ·
+      <a href="https://github.com/DeepLearningRTP/deeplearningrtp.github.io/wiki" target="_blank" rel="noopener">Wiki</a> ·
       <a href="https://github.com/DeepLearningRTP" target="_blank" rel="noopener">GitHub</a>
     </span>
   </div>
@@ -303,15 +284,6 @@
 
 <script type="module">
 const $ = s => document.querySelector(s);
-
-/* ---------- theme ---------- */
-// Dark is the brand default; light is opt-in via the toggle (remembered per visitor).
-document.documentElement.dataset.theme = localStorage.getItem('dlrtp-theme') || 'dark';
-$('#theme-toggle').onclick = () => {
-  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  localStorage.setItem('dlrtp-theme', next);
-};
 
 /* ---------- Transformers.js (lazy) ---------- */
 // ponytail: model ids below are the only tuning knobs; swap for other ONNX-ported HF models.
@@ -332,9 +304,9 @@ $('#sent-run').onclick = async () => {
   try {
     const [r] = await (await getSentiment())(text);
     const pct = (r.score * 100).toFixed(1);
-    const cls = r.label === 'POSITIVE' ? 'tag-pos' : 'tag-neg';
+    const cls = r.label === 'POSITIVE' ? 'pos' : 'neg';
     out.innerHTML = `<span class="${cls}">${r.label}</span> · ${pct}%
-      <div class="bar"><i style="width:${pct}%"></i></div>`;
+      <div class="bar-meter"><i style="width:${pct}%"></i></div>`;
   } catch (e) { out.textContent = 'Error: ' + e.message; }
 };
 
@@ -375,7 +347,7 @@ function addMsg(cls, text) {
 
 $('#llm-launch').onclick = async () => {
   if (!navigator.gpu) {
-    status.innerHTML = `<span class="tag-neg">WebGPU not available.</span> This demo needs Chrome, Edge, or Safari 26+ (Firefox: enable <code>dom.webgpu.enabled</code>). The two demos above still work everywhere.`;
+    status.innerHTML = `<span class="neg">WebGPU not available.</span> This demo needs Chrome, Edge, or Safari 26+ (Firefox: enable <code>dom.webgpu.enabled</code>). The two demos above still work everywhere.`;
     return;
   }
   const modelId = $('#llm-model').value; // ponytail: default model = fastest small instruct; swap freely.
