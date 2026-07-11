@@ -1,0 +1,59 @@
+/* DLRTP — ink on paper, bibliography discipline. One accent, spent on the citation card. */
+:root {
+  --paper: #fcfcfa;
+  --ink: #1c1c1a;
+  --quiet: #6d6d66;
+  --rule: #d9d9d2;
+  --accent: #234e70;
+  --accent-wash: #eef2f6;
+}
+* { box-sizing: border-box; }
+html { font-size: 17px; }
+body {
+  margin: 0 auto; max-width: 44rem; padding: 1.5rem 1.25rem 4rem;
+  background: var(--paper); color: var(--ink);
+  font-family: Charter, "Bitstream Charter", Cambria, Georgia, serif;
+  line-height: 1.55;
+}
+.mono, .cite-label {
+  font-family: "Berkeley Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem; letter-spacing: 0.01em; color: var(--quiet);
+}
+header { display: flex; align-items: baseline; justify-content: space-between;
+  border-bottom: 1px solid var(--rule); padding-bottom: 0.75rem; margin-bottom: 2rem; }
+.wordmark { font-weight: 700; letter-spacing: 0.06em; text-decoration: none; color: var(--ink); }
+nav a { margin-left: 1rem; color: var(--quiet); text-decoration: none; }
+nav a:hover, .wordmark:hover { color: var(--accent); }
+h1 { font-size: 1.6rem; line-height: 1.2; margin: 0.25rem 0 0.5rem; }
+h2 { font-size: 1.15rem; margin: 2rem 0 0.5rem; }
+a { color: var(--accent); text-underline-offset: 2px; }
+.thesis { font-size: 1.15rem; max-width: 36rem; margin: 0 0 2rem; }
+.citation {
+  border-left: 3px solid var(--accent); background: var(--accent-wash);
+  padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 4px 4px 0;
+}
+.citation h2 { margin-top: 0.15rem; }
+.cite-label { text-transform: uppercase; color: var(--accent); margin: 0; }
+.actions { margin-top: 1rem; }
+.btn {
+  display: inline-block; margin: 0 0.6rem 0.5rem 0; padding: 0.4rem 0.9rem;
+  border: 1px solid var(--accent); border-radius: 3px;
+  color: var(--accent); text-decoration: none; font-size: 0.9rem;
+}
+.btn:hover, .btn:focus-visible { background: var(--accent); color: var(--paper); }
+.entry-list { list-style: none; padding: 0; }
+.entry-list li { padding: 0.45rem 0; border-bottom: 1px solid var(--rule); }
+.entry-list .mono { display: inline-block; min-width: 7.5rem; }
+.src { font-size: 0.78rem; margin-left: 0.4rem; }
+.quiet { color: var(--quiet); }
+article.citation { background: transparent; border-left-color: var(--rule); }
+article.citation:hover { border-left-color: var(--accent); }
+footer { margin-top: 4rem; border-top: 1px solid var(--rule);
+  padding-top: 1rem; font-size: 0.85rem; color: var(--quiet); }
+footer p { margin: 0.2rem 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 480px) {
+  html { font-size: 16px; }
+  .entry-list .mono { display: block; min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

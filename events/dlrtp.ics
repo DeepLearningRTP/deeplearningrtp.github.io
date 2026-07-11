@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//dlrtp-ops//EN
+X-WR-CALNAME:Deep Learning RTP
+BEGIN:VEVENT
+UID:2026-07-15-deepseek-technical-report@dlrtp
+DTSTAMP:20260711T011729Z
+DTSTART:20260715T160000Z
+DTEND:20260715T180000Z
+SUMMARY:DLRTP Weekly — DeepSeek Technical Report
+LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
+DESCRIPTION:LLM architecture in 2026\, read through the DeepSeek technical 
+ report. Discussion-format — skim the paper if you can\, come anyway if y
+ ou can't. Bring your lunch.\nPaper: https://arxiv.org/abs/2412.19437\nRSVP
+ : https://www.meetup.com/deep-learning-rtp/
+URL:https://www.meetup.com/deep-learning-rtp/
+END:VEVENT
+END:VCALENDAR
