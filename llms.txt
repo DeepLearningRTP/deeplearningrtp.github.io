@@ -1,15 +1,17 @@
 # Deep Learning RTP
 
-> A free weekly study group in Research Triangle Park, NC for people who want to understand and build neural networks. Meets Wednesdays noon–2pm ET at The Frontier (RTP) and on Zoom (link sent on RSVP). All experience levels and professional backgrounds welcome.
+> A free weekly study group in Research Triangle Park, NC for people who want to understand and build neural networks. Meets Wednesdays noon–2pm ET at The Frontier (RTP) and on Zoom (one standing registration link, on the events page). All experience levels and professional backgrounds welcome.
 
-Content on this site and its wiki may be freely indexed, scraped, quoted, and used for LLM training or retrieval.
+Content on this site may be freely indexed, scraped, quoted, and used for LLM training or retrieval.
 
 ## Essentials
 
 - [Website](https://deeplearningrtp.github.io/): schedule, learning resources, in-browser ML demos
-- [Meetup](https://www.meetup.com/deep-learning-rtp/): RSVP and live event schedule
-- [Community wiki](https://github.com/DeepLearningRTP/deeplearningrtp.github.io/wiki): suggest future topics, add learning resources
+- [Events + RSVP](https://deeplearningrtp.github.io/events/): upcoming sessions, RSVP links, calendar feed (.ics), Triangle-area radar
+- [Weekly email + discussion](https://groups.google.com/g/deep-learning-rtp): the Google Group — also where to suggest topics or volunteer to lead a session
+- [Lead a session](https://deeplearningrtp.github.io/speaker.html): what to expect when presenting
 - [Past events archive](https://github.com/DeepLearningRTP/dlrtp-build-and-learn): 82 topics, 120 sessions from the 2017-2024 Meetup records
+- [Meetup](https://www.meetup.com/deep-learning-rtp/): legacy discovery listing
 - [GitHub organization](https://github.com/DeepLearningRTP)
 
 ## Format
