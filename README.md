@@ -19,8 +19,11 @@ python3 -m http.server 8000   # then open http://localhost:8000
 (Any static server works — the demos need `https://` or `localhost` for WebGPU.)
 
 ## Deploy
-GitHub Pages serves the `master` branch as-is (`.nojekyll` disables Jekyll). Merge to `master` → live.
+GitHub Pages serves the `main` branch as-is (`.nojekyll` disables Jekyll). Merge to `main` → live.
 
 ## Edit
-Everything is in `index.html` — content, inline CSS, and one `<script type="module">`. The upcoming-events
-list and the two `// ponytail:`-marked model ids are the bits most likely to need updating.
+Everything is in `index.html` — content, inline CSS, and one `<script type="module">`. Two regions are
+**generated, not hand-edited**: the upcoming-meetings list and the JSON-LD block, both fenced by
+`<!-- generated:*:start/end -->` markers and overwritten by the dlrtp-ops `site` workflow on every
+ops push (same job that publishes `/events/`). Edit event YAMLs in dlrtp-ops instead. The two
+`// ponytail:`-marked model ids in `app.js` remain the likeliest hand edits.
