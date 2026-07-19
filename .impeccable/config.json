@@ -4,6 +4,16 @@
     "ignoreFiles": [
       "history/index.html"
     ],
-    "ignoreValues": []
+    "ignoreValues": [
+      {
+        "rule": "em-dash-overuse",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-07-19T18:56:43.259Z",
+        "reason": "Resource list uses bibliographic Author — Title separators; prose cadence already fixed with Danny's OK"
+      }
+    ]
   }
 }
