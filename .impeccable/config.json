@@ -3,7 +3,9 @@
     "ignoreRules": [],
     "ignoreFiles": [
       "history/index.html",
-      "/home/danny/projects/deeplearningrtp.github.io/history/index.html"
+      "/home/danny/projects/deeplearningrtp.github.io/history/index.html",
+      "unhinged.html",
+      "/home/danny/projects/deeplearningrtp.github.io/unhinged.html"
     ],
     "ignoreValues": [
       {

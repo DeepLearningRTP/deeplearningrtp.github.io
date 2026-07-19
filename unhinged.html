@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEEP LEARNING RTP — UNLEASH THE WEDNESDAY (parody preview)</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --void:#07031a; --glass:rgba(255,255,255,.06); --edge:rgba(255,255,255,.14);
+    --cyan:#22e4ff; --magenta:#ff3df2; --lime:#b6ff2e; --violet:#8b5cf6;
+    --txt:#e8e6ff; --dim:#9a94c2;
+    --grad:linear-gradient(93deg,var(--cyan),var(--magenta) 55%,var(--lime));
+    --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--void);color:var(--txt);font:16px/1.65 var(--sans);overflow-x:hidden}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+  a{color:var(--cyan)}
+  h1,h2,h3{margin:0;line-height:1.15}
+  .gtext{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* orbs */
+  .orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none}
+  .o1{width:480px;height:480px;background:var(--violet);top:-140px;left:-120px;animation:drift 19s ease-in-out infinite alternate}
+  .o2{width:420px;height:420px;background:#ff3df255;top:35%;right:-160px;animation:drift 23s ease-in-out infinite alternate-reverse}
+  .o3{width:380px;height:380px;background:#22e4ff44;bottom:-120px;left:30%;animation:drift 17s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,40px) scale(1.15)}}
+
+  /* ticker */
+  .ticker{border-bottom:1px solid var(--edge);overflow:hidden;white-space:nowrap;position:relative;z-index:2;
+    background:rgba(255,255,255,.03)}
+  .ticker div{display:inline-block;padding:9px 0;font:600 12px var(--mono);letter-spacing:.22em;
+    animation:tick 28s linear infinite}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .ticker span{color:var(--lime);margin:0 18px}
+
+  /* hero */
+  .hero{padding:96px 0 60px;text-align:center}
+  .eyebrow{font:700 13px var(--mono);letter-spacing:.34em;color:var(--magenta);text-transform:uppercase;
+    text-shadow:0 0 18px #ff3df299}
+  .hero h1{font-size:clamp(40px,7.5vw,84px);font-weight:800;letter-spacing:-.03em;margin:22px auto 0;max-width:17ch;
+    animation:hue 6s linear infinite}
+  @keyframes hue{from{filter:hue-rotate(0)}to{filter:hue-rotate(360deg)}}
+  .hero .sub{margin:26px auto 0;max-width:56ch;color:var(--dim);font-size:19px}
+  .ctas{margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta{display:inline-block;padding:16px 34px;border-radius:999px;font-weight:800;text-decoration:none;font-size:16px}
+  .cta.primary{background:var(--grad);color:#07031a;box-shadow:0 0 34px #ff3df266,0 0 60px #22e4ff44;
+    animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 50px #ff3df2aa,0 0 90px #22e4ff77}}
+  .cta.ghost{border:1px solid var(--edge);color:var(--txt);backdrop-filter:blur(8px);background:var(--glass)}
+  .fine{margin-top:14px;font-size:12px;color:var(--dim)}
+
+  /* countdown */
+  .count{margin:60px auto 0;max-width:760px;background:var(--glass);border:1px solid var(--edge);
+    border-radius:22px;backdrop-filter:blur(14px);padding:28px 20px;text-align:center}
+  .count .lbl{font:700 12px var(--mono);letter-spacing:.28em;color:var(--cyan);text-transform:uppercase}
+  .digits{display:flex;gap:18px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .digits div{min-width:86px}
+  .digits b{display:block;font:800 44px/1 var(--mono);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .digits span{font:600 10.5px var(--mono);letter-spacing:.22em;color:var(--dim);text-transform:uppercase}
+  .count .what{margin:16px 0 0;color:var(--dim);font-size:14px}
+  .count .what a{color:var(--lime)}
+
+  /* metrics */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin:64px 0 0}
+  .metric{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:26px 18px;
+    text-align:center;backdrop-filter:blur(10px)}
+  .metric b{display:block;font:800 40px/1.1 var(--sans);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .metric span{display:block;margin-top:8px;font:600 11px var(--mono);letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+
+  section{padding:72px 0 0;position:relative;z-index:2}
+  .h2{font-size:clamp(26px,4.4vw,42px);font-weight:800;text-align:center}
+  .lede{color:var(--dim);text-align:center;max-width:60ch;margin:14px auto 0}
+
+  /* team + keynote */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+  @media(max-width:720px){.duo{grid-template-columns:1fr}}
+  .glasscard{background:var(--glass);border:1px solid var(--edge);border-radius:20px;overflow:hidden;backdrop-filter:blur(10px)}
+  .glasscard img{width:100%;height:auto;display:block}
+  .glasscard figure{margin:0}
+  .glasscard figcaption{padding:14px 18px;font-size:13.5px;color:var(--dim)}
+  .glasscard figcaption b{color:var(--txt)}
+
+  /* testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:34px}
+  .q{background:var(--glass);border:1px solid var(--edge);border-radius:18px;padding:24px;backdrop-filter:blur(10px)}
+  .q p{margin:0;font-size:17px;font-style:italic}
+  .q .who{margin-top:14px;font:600 12px var(--mono);letter-spacing:.06em;color:var(--cyan)}
+
+  /* pricing */
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:34px}
+  .tier{background:var(--glass);border:1px solid var(--edge);border-radius:20px;padding:28px 24px;text-align:center;backdrop-filter:blur(10px)}
+  .tier.hot{border:1px solid var(--magenta);box-shadow:0 0 30px #ff3df244}
+  .tier h3{font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+  .tier .price{font:800 52px/1 var(--sans);margin:14px 0 4px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .tier .per{font-size:12px;color:var(--dim)}
+  .tier ul{list-style:none;margin:18px 0 22px;padding:0;font-size:14.5px;color:var(--dim);text-align:left}
+  .tier li{padding:6px 0;border-bottom:1px dashed var(--edge)}
+  .tier li::before{content:"✦ ";color:var(--lime)}
+  .tier a{display:inline-block;padding:11px 26px;border-radius:999px;background:var(--grad);color:#07031a;font-weight:800;text-decoration:none;font-size:14px}
+
+  /* sanity footer */
+  .sanity{margin-top:90px;border-top:1px solid var(--edge);padding:30px 0 64px;position:relative;z-index:2}
+  .sanity .wrap{font-size:14px;color:var(--dim)}
+  .sanity a{color:var(--cyan)}
+  .sanity .real{background:var(--glass);border:1px solid var(--edge);border-radius:14px;padding:16px 20px;margin-top:10px}
+
+  @media (prefers-reduced-motion:reduce){
+    .orb,.hero h1,.cta.primary,.ticker div{animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>DISRUPTING WEDNESDAYS SINCE 2017</span><span>400X MORE MEETINGS THAN ZERO</span><span>POWERED BY ATTENTION (SINCE 2018)</span><span>NOW WITH 3 NEURONS</span><span>WEB-SCALE SANDWICHES</span><span>ZERO BURN RATE</span><span>THE FRONTIER IS LITERALLY OUR VENUE</span>
+  <span>DISRUPTING WEDNESDAYS SINCE 2017</span><span>400X MORE MEETINGS THAN ZERO</span><span>POWERED BY ATTENTION (SINCE 2018)</span><span>NOW WITH 3 NEURONS</span><span>WEB-SCALE SANDWICHES</span><span>ZERO BURN RATE</span><span>THE FRONTIER IS LITERALLY OUR VENUE</span>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">The future of lunch is here</div>
+    <h1 class="gtext">UNLEASH THE POWER OF SHOWING UP ON WEDNESDAYS</h1>
+    <p class="sub">Deep Learning RTP is the world's most advanced free study group in the
+    Research Triangle.* A revolutionary paradigm where humans read papers <em>together</em>,
+    at lunch, using synergistic technologies like "chairs" and "asking questions".</p>
+    <div class="ctas">
+      <a class="cta primary" href="https://www.meetup.com/deep-learning-rtp/events/315516897/">JOIN THE REVOLUTION →</a>
+      <a class="cta ghost" href="/photos/ai-cover-keynote.jpg">WATCH KEYNOTE</a>
+    </div>
+    <p class="fine">*it is a study group. no credit card required because there is nothing to buy.</p>
+  </div>
+
+  <div class="count">
+    <div class="lbl">The next paradigm shift begins in</div>
+    <div class="digits">
+      <div><b id="cd">…</b><span>days</span></div>
+      <div><b id="ch">…</b><span>hours</span></div>
+      <div><b id="cm">…</b><span>mins</span></div>
+      <div><b id="cs">…</b><span>secs</span></div>
+    </div>
+    <p class="what">aka <a href="https://www.meetup.com/deep-learning-rtp/events/315516897/">Emergent
+    Sparsity in Frozen-Random-CNN Deep RL</a> — Scott Norton, Wednesday noon, Frontier RTP + Zoom.
+    That part is real.</p>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><b>400X</b><span>meetings (vs zero)</span></div>
+    <div class="metric"><b>$0</b><span>burn rate · forever</span></div>
+    <div class="metric"><b>1,588</b><span>humans onboarded</span></div>
+    <div class="metric"><b>3</b><span>neurons (playing pong)</span></div>
+  </div>
+
+  <section>
+    <h2 class="h2 gtext">MEET THE TEAM</h2>
+    <p class="lede">Our leadership, exactly as depicted by the AI that generated our own
+    Meetup cover images. We cannot stress enough that these are the actual covers.</p>
+    <div class="duo">
+      <div class="glasscard"><figure>
+        <img src="/photos/ai-cover-bears.jpg" width="900" height="459" loading="lazy"
+          alt="AI-generated cartoon bears working intently at laptops in an office">
+        <figcaption><b>Executive leadership.</b> Source: our real, AI-generated 2024 event
+        cover. None of these bears has ever attended.</figcaption>
+      </figure></div>
+      <div class="glasscard"><figure>
+        <img src="/photos/ai-cover-keynote.jpg" width="1100" height="619" loading="lazy"
+          alt="AI-generated stadium keynote stage with giant RTP letters and impossible charts">
+        <figcaption><b>Our global keynote.</b> Source: our real, AI-generated 2026 event
+        cover. We meet in a conference room named after eagles.</figcaption>
+      </figure></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h2 gtext">TRUSTED BY VISIONARIES</h2>
+    <div class="quotes">
+      <div class="q"><p>"ML SOLVES EVERYTHING!"</p><div class="who">— a whiteboard unicorn, October 2018</div></div>
+      <div class="q"><p>"Bring a laptop and let's study together."</p><div class="who">— 400 event listings, 2017–2024, relentlessly</div></div>
+      <div class="q"><p>"No RL background required."</p><div class="who">— Scott Norton, an actual human, this Wednesday</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h2 gtext">PRICING</h2>
+    <p class="lede">Choose the plan that's right for your neural journey.</p>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Starter</h3>
+        <div class="price">$0</div><div class="per">/ forever</div>
+        <ul><li>Every session</li><li>Zoom from home</li><li>The reading list</li><li>Judgment-free questions</li></ul>
+        <a href="https://www.meetup.com/deep-learning-rtp/events/315516897/">Deploy yourself</a>
+      </div>
+      <div class="tier hot">
+        <h3>Pro</h3>
+        <div class="price">$0</div><div class="per">/ forever · most popular</div>
+        <ul><li>Everything in Starter</li><li>You present a paper</li><li>We fill the room</li><li>Permanent archive credit</li></ul>
+        <a href="/speaker.html">Ship a talk</a>
+      </div>
+      <div class="tier">
+        <h3>Enterprise</h3>
+        <div class="price">$0</div><div class="per">/ forever</div>
+        <ul><li>Everything in Pro</li><li>You bring snacks</li><li>Unlimited seats (room permitting)</li><li>Dedicated support (it's Danny)</li></ul>
+        <a href="https://groups.google.com/g/deep-learning-rtp">Contact sales</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sanity">
+    <div class="wrap" style="padding:0">
+      <p><b>Okay, deep breath.</b> This page is a parody of the websites our field keeps
+      shipping — every gradient, glow, and glass card above is on our own do-not list. The
+      group, the schedule, the $0, and Scott's talk are all real.</p>
+      <div class="real">
+        Real versions of this website:
+        <a href="/">current site</a> ·
+        <a href="/notebook.html">lab notebook</a> ·
+        <a href="/workingpaper.html">working paper</a> ·
+        <a href="/almanac.html">almanac</a>
+        &nbsp;·&nbsp; Real doors:
+        <a href="https://www.meetup.com/deep-learning-rtp/events/315516897/">RSVP</a> ·
+        <a href="/events/dlrtp.ics">.ics</a> ·
+        <a href="https://groups.google.com/g/deep-learning-rtp">email</a> ·
+        <a href="https://discord.gg/sFJD8Xfc3">Discord</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // countdown to the next Wednesday 12:00 ET (America/New_York)
+  const $ = id => document.getElementById(id);
+  function nextSession(){
+    const now = new Date();
+    for(let i=0;i<8;i++){
+      const c = new Date(now.getTime() + i*864e5);
+      const et = new Date(c.toLocaleString("en-US",{timeZone:"America/New_York"}));
+      if(et.getDay()===3){
+        // ponytail: hardcoded EDT offset; drifts an hour Nov-Mar. It's a parody page.
+        const guess = new Date(`${et.getFullYear()}-${String(et.getMonth()+1).padStart(2,"0")}-${String(et.getDate()).padStart(2,"0")}T12:00:00-04:00`);
+        if(guess > now) return guess;
+      }
+    }
+    return null;
+  }
+  const t = nextSession();
+  function tick(){
+    if(!t) return;
+    let s = Math.max(0, Math.floor((t - Date.now())/1000));
+    $("cd").textContent = Math.floor(s/86400); s%=86400;
+    $("ch").textContent = Math.floor(s/3600);  s%=3600;
+    $("cm").textContent = Math.floor(s/60);
+    $("cs").textContent = s%60;
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
