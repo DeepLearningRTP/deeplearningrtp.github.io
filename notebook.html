@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Learning RTP — lab notebook (design preview)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval' http://localhost:8400; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
+<style>
+  :root{
+    --paper:#fcfcfb; --ink:#17181a; --faint:#6a6d70; --rule:#e3e4e5; --mark:#fff2a8;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,"Liberation Mono",monospace;
+    --col:800px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.7 var(--mono)}
+  .wrap{max-width:var(--col);margin:0 auto;padding:0 20px}
+  a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  a:hover{background:var(--mark);text-decoration:none}
+  ::selection{background:var(--mark)}
+  h1,h2{font-family:var(--mono);line-height:1.25;margin:0}
+  .cmt{color:var(--faint)}
+
+  /* header */
+  header{border-bottom:1px solid var(--rule)}
+  header .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 22px;padding:18px 20px}
+  .name{font-weight:700;font-size:16px}
+  .name a{text-decoration:none}
+  header nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px}
+  header nav a{color:var(--faint);text-decoration:none}
+  header nav a:hover{color:var(--ink);background:var(--mark)}
+
+  /* deepdream strip */
+  .dream{border-bottom:1px solid var(--rule);position:relative;height:150px;
+    background:url(/photos/2017-02-deepdream-nc.jpg) center 38%/cover no-repeat}
+  .dream span{position:absolute;right:10px;bottom:8px;background:var(--paper);border:1px solid var(--rule);
+    padding:2px 9px;font-size:12px;color:var(--faint)}
+  @media(max-width:640px){.dream{height:100px}}
+
+  /* title block */
+  .titleblock{padding:44px 0 8px}
+  .titleblock h1{font-size:clamp(22px,4.6vw,34px);font-weight:700;letter-spacing:-.01em}
+  .titleblock p{margin:14px 0 0;max-width:68ch}
+  .titleblock .cmt{display:block;margin-bottom:14px;font-size:13.5px}
+
+  section{padding:34px 0 6px}
+  .h{font-size:17px;font-weight:700;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+  .h .cmt{font-weight:400;font-size:13.5px;margin-left:12px}
+
+  /* next() — the signature */
+  .next{border:1px solid var(--ink);padding:20px 22px;margin-top:4px}
+  .next .date{font-weight:700;font-size:13.5px}
+  .next .title{font-size:clamp(17px,3vw,21px);font-weight:700;line-height:1.4;margin:6px 0 10px}
+  .next .title i{font-style:normal;
+    background:linear-gradient(101deg,transparent 1.2%,var(--mark) 3.8%,var(--mark) 96.4%,transparent 98.6%);
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:1px 6px 2px}
+  .next p{margin:0 0 10px;max-width:66ch}
+  .doors{margin-top:14px;font-size:14.5px}
+  .doors b{font-weight:700}
+  .then{margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);font-size:14px;color:var(--faint)}
+  .then a{color:var(--faint)}
+
+  /* log */
+  .log{list-style:none;margin:0;padding:0}
+  .log li{display:flex;gap:18px;padding:7px 0;border-bottom:1px solid var(--rule)}
+  .log .d{color:var(--faint);white-space:nowrap;font-size:13.5px;padding-top:2px}
+  .log .more{border-bottom:none;color:var(--faint)}
+
+  /* figures */
+  .figs{display:grid;grid-template-columns:1fr 1fr;gap:26px 22px;margin-top:6px}
+  @media(max-width:640px){.figs{grid-template-columns:1fr}}
+  .figs figure{margin:0}
+  .figs figure.wide{grid-column:1/-1}
+  .figs img{width:100%;height:auto;display:block;border:5px solid #fff;outline:1px solid var(--rule);
+    box-shadow:5px 5px 0 var(--rule)}
+  .figs figcaption{margin-top:10px;font-size:13px;line-height:1.6;color:var(--faint)}
+  .figs figcaption b{color:var(--ink);font-weight:700}
+
+  /* facts + prose */
+  .kv{margin:6px 0 0;max-width:56ch}
+  .kv div{display:flex;gap:14px;padding:6px 0;border-bottom:1px solid var(--rule)}
+  .kv span:first-child{color:var(--faint);min-width:9ch}
+  .prose p{max-width:68ch;margin:0 0 14px}
+
+  /* resources */
+  .res{columns:2;column-gap:44px}
+  @media(max-width:600px){.res{columns:1}}
+  .res .grp{break-inside:avoid;margin-bottom:18px}
+  .res h3{font-size:14px;margin:0 0 6px;font-weight:700}
+  .res ul{margin:0;padding-left:20px;font-size:14px}
+  .res li{margin:5px 0}
+
+  /* demos */
+  .card{border:1px solid var(--rule);padding:18px;margin-top:16px;background:#fff}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .tag{font-size:12px;color:var(--faint)}
+  .card h3{font-size:15px;margin:6px 0 12px}
+  textarea,input[type=text]{width:100%;background:var(--paper);border:1px solid var(--rule);color:var(--ink);
+    padding:10px 12px;font:inherit;font-size:14px;resize:vertical}
+  textarea:focus,input:focus{outline:2px solid var(--ink);outline-offset:0}
+  .act{display:inline-block;margin-top:12px;padding:8px 16px;background:var(--ink);color:var(--paper);border:none;
+    font:700 13.5px var(--mono);cursor:pointer}
+  .act:hover{background:#000}
+  .act:disabled{opacity:.5;cursor:default}
+  select{background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:8px;font:inherit;font-size:14px}
+  .out{margin-top:12px;min-height:20px;font-size:14px}
+  .bar-meter{height:8px;background:var(--rule);overflow:hidden;margin-top:6px}
+  .bar-meter>i{display:block;height:100%;background:var(--ink)}
+  .resultline{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--rule)}
+  .resultline b{font-variant-numeric:tabular-nums}
+  .drop{border:1.5px dashed var(--faint);padding:22px;text-align:center;color:var(--faint);cursor:pointer;background:var(--paper)}
+  .drop.hover{border-color:var(--ink);color:var(--ink)}
+  .drop img{max-width:100%;max-height:200px;margin-top:12px}
+  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .note{font-size:13px;color:var(--faint)}
+  .pos{background:var(--mark);font-weight:700;padding:0 4px}
+  .neg{font-weight:700;text-decoration:underline wavy}
+  details.how{margin-top:14px;border-top:1px dashed var(--rule);padding-top:10px}
+  details.how summary{cursor:pointer;font-weight:700;font-size:13px}
+  details.how p{margin:8px 0 0;font-size:13.5px;color:var(--faint);max-width:64ch}
+  .chat{display:none;margin-top:16px}
+  .chat.on{display:block}
+  .log-w{background:#fff;border:1px solid var(--rule);padding:12px;height:280px;overflow:auto;font-size:14px}
+  .msg{padding:7px 11px;margin:8px 0;max-width:88%;white-space:pre-wrap;word-wrap:break-word;border:1px solid var(--rule)}
+  .msg.user{background:var(--mark);border-color:var(--ink);margin-left:auto}
+  .msg.bot{background:var(--paper)}
+  .msg.sys{background:transparent;border:none;color:var(--faint);font-size:12.5px;text-align:center;max-width:100%}
+
+  footer{margin-top:44px;border-top:1px solid var(--rule);padding:26px 0 56px;font-size:13.5px;color:var(--faint)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+  footer a{color:var(--faint)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="name"><a href="/">dlrtp</a></span>
+    <span class="cmt"># a lab notebook, open weekly since 2017-02-09</span>
+    <nav>
+      <a href="/events/">sessions</a>
+      <a href="/history/">history</a>
+      <a href="#room">the room</a>
+      <a href="#resources">resources</a>
+      <a href="#demos">demos</a>
+    </nav>
+  </div>
+</header>
+
+<div class="dream" role="img" aria-label="North Carolina rendered by DeepDream, swirling with convnet artifacts">
+  <span># fig 0 — North Carolina, dreamed by a convnet. our first group photo, feb 2017</span>
+</div>
+
+<div class="wrap">
+
+  <div class="titleblock">
+    <span class="cmt"># Research Triangle Park · Wednesdays noon–2pm ET · The Frontier + Zoom · free</span>
+    <h1>We understand and build neural networks.</h1>
+    <p>A weekly study group, 400 meetings deep. Each session is a paper review or a
+    technical deep dive: come to ask questions, answer them, or present what you've
+    figured out. All experience levels welcome.</p>
+  </div>
+
+  <section id="next">
+    <h2 class="h">next() <span class="cmt"># RSVP and show up — that's the whole onboarding</span></h2>
+    <div class="next">
+      <div class="date">WED JUL 22 · 12:00–2:00 PM ET · The Frontier, RTP + Zoom</div>
+      <div class="title"><i>Emergent Sparsity in Frozen-Random-CNN Deep RL</i> — Scott Norton</div>
+      <p>Playing Pong through 3 neurons: freeze a random CNN, train an RL agent on top,
+      and the agent routes everything through 1–3 of 64 neurons with no sparsity
+      objective anywhere. A member's own manuscript, arXiv pending.</p>
+      <div class="doors"><b>&gt;&gt;</b> <a href="https://www.meetup.com/deep-learning-rtp/events/315516897/">rsvp</a> ·
+        <a href="/events/dlrtp.ics">calendar(.ics)</a> ·
+        <a href="https://groups.google.com/g/deep-learning-rtp">email</a> ·
+        <a href="https://discord.gg/sFJD8Xfc3">discord</a> ·
+        <a href="https://us04web.zoom.us/j/75202351347?pwd=a3xZ3xA4mYosyNdZBvb8zfxbaHTa11.1">zoom</a></div>
+      <div class="then">then: JUL 29 — <a href="https://www.meetup.com/deep-learning-rtp/events/315598882/">Agents - Let's get this over with</a> (Weng's harness post) · full slate on the <a href="/events/">sessions page</a></div>
+    </div>
+  </section>
+
+  <section id="log">
+    <h2 class="h">log <span class="cmt"># what the room actually read</span></h2>
+    <ul class="log">
+      <li><span class="d">2026-07-15</span><span>LLM Architecture in 2026 — DeepSeek Technical Report</span></li>
+      <li><span class="d">2026-07-08</span><span>Reverse-Engineering a Language Model <span class="cmt">(attribution graphs)</span></span></li>
+      <li><span class="d">2023-02-07</span><span>Build your own GPT with nanoGPT <span class="cmt"># 3 weeks after Karpathy's lecture</span></span></li>
+      <li><span class="d">2022-09-07</span><span>Preventing an AI-related catastrophe <span class="cmt"># 12 weeks before ChatGPT</span></span></li>
+      <li><span class="d">2018-04-22</span><span>Attention Is All You Need <span class="cmt"># 7 weeks before GPT-1</span></span></li>
+      <li class="more"><span class="d">2017-02-09 →</span><span><a href="/history/">the full record: 400 meetings, searchable</a></span></li>
+    </ul>
+  </section>
+
+  <section id="room">
+    <h2 class="h">the room <span class="cmt"># no stock photos. ever.</span></h2>
+    <div class="figs">
+      <figure class="wide">
+        <img src="/photos/2018-04-attention.jpg" width="1440" height="1080" loading="lazy"
+          alt="A member at the seminar table points at an Attention Mechanism slide, the room following on laptops">
+        <figcaption><b>fig 1 · apr 2018</b> — walking the room through "Attention Is All You Need".
+        <span class="cmt"># receipts in <a href="/history/">the record</a></span></figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2022-04-races.jpg" width="900" height="807" loading="lazy"
+          alt="Members around brewery picnic tables with two small self-driving RC cars between the glasses">
+        <figcaption><b>fig 2 · apr 2022</b> — self-driving races over beers.</figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2018-10-ml-solves-everything.jpg" width="900" height="675" loading="lazy"
+          alt="A projected hand-drawn unicorn labeled ML above the words 'solves everything!'">
+        <figcaption><b>fig 3 · oct 2018</b> — a visiting data scientist's opening argument.
+        <span class="cmt"># house epistemics</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="how" class="prose">
+    <h2 class="h">how it works</h2>
+    <p>A study group, not a lecture series. Between sessions, work through a course or
+    project at your own pace. Wednesdays are where you bring what it raised: the parts
+    that clicked, the parts that didn't, the thing you built to find out.</p>
+    <div class="kv">
+      <div><span>when</span><span><b>Wednesdays, 12–2pm ET</b></span></div>
+      <div><span>where</span><span>The Frontier, RTP + <a href="https://us04web.zoom.us/j/75202351347?pwd=a3xZ3xA4mYosyNdZBvb8zfxbaHTa11.1">Zoom</a> <span class="cmt"># register once</span></span></div>
+      <div><span>cost</span><span>free</span></div>
+      <div><span>record</span><span><a href="/history/">400 meetings since 2017</a></span></div>
+    </div>
+  </section>
+
+  <section id="lead" class="prose">
+    <h2 class="h">lead a session <span class="cmt"># we'll fill the room</span></h2>
+    <p>Every session is member-led. Pick a paper you want understood (or take one off
+    our list) and the group handles the announcement, the room, and the recap, which
+    credits you permanently in the archive. Read the paper twice; that's the bar.
+    <a href="/speaker.html">Exactly what to expect →</a></p>
+  </section>
+
+  <section id="resources">
+    <h2 class="h">resources <span class="cmt"># the path we hand every newcomer</span></h2>
+    <div class="res">
+      <div class="grp">
+        <h3>getting started</h3>
+        <ul>
+          <li><a href="https://www.3blue1brown.com/topics/neural-networks">3Blue1Brown — Neural Networks</a></li>
+          <li><a href="http://introtodeeplearning.com/">MIT 6.S191 — Intro to Deep Learning</a></li>
+          <li><a href="https://course.fast.ai/">fast.ai — Practical Deep Learning</a> (and <a href="https://course.fast.ai/Lessons/part2.html">Part 2</a>)</li>
+          <li><a href="http://neuralnetworksanddeeplearning.com/">Nielsen — Neural Networks &amp; Deep Learning</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>build an LLM from scratch</h3>
+        <ul>
+          <li><a href="https://jalammar.github.io/illustrated-transformer/">Alammar — The Illustrated Transformer</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ">Karpathy — Zero to Hero</a></li>
+          <li><a href="https://github.com/rasbt/LLMs-from-scratch">Raschka — Build an LLM (From Scratch)</a></li>
+          <li><a href="https://modernaicourse.org/">CMU — Intro to Modern AI</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>free textbooks</h3>
+        <ul>
+          <li><a href="https://udlbook.github.io/udlbook/">Understanding Deep Learning</a></li>
+          <li><a href="https://www.bishopbook.com/">Bishop — Foundations &amp; Concepts</a></li>
+          <li><a href="https://probml.github.io/pml-book/">Murphy — Probabilistic ML</a></li>
+          <li><a href="https://d2l.ai/">Dive into Deep Learning</a></li>
+          <li><a href="https://mml-book.github.io/">Mathematics for ML</a></li>
+          <li><a href="https://www.statlearning.com/">Intro to Statistical Learning</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>more courses</h3>
+        <ul>
+          <li><a href="https://stanford-cs336.github.io/">Stanford CS336 — LLMs from Scratch</a></li>
+          <li><a href="https://cs231n.github.io/">Stanford CS231n — Vision</a></li>
+          <li><a href="https://web.stanford.edu/class/cs224n/">Stanford CS224n — NLP</a></li>
+          <li><a href="https://github.com/fastai/numerical-linear-algebra">fast.ai — Computational Linear Algebra</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>run models yourself</h3>
+        <ul>
+          <li><a href="https://huggingface.co/docs/transformers.js">Transformers.js — ML in the browser</a></li>
+          <li><a href="https://webllm.mlc.ai/">WebLLM — LLMs on WebGPU</a></li>
+          <li><a href="https://pytorch.org/tutorials/">PyTorch tutorials</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="demos">
+    <h2 class="h">demos <span class="cmt"># models run in this tab. nothing leaves your device</span></h2>
+    <div class="grid2">
+      <div class="card">
+        <div class="tag"># transformers.js · DistilBERT ~65MB</div>
+        <h3>sentiment analysis</h3>
+        <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
+        <div><button class="act" id="sent-run">analyze</button></div>
+        <div class="out" id="sent-out"></div>
+        <details class="how">
+          <summary>what's happening here?</summary>
+          <p>DistilBERT is a small transformer, the same architecture family as today's LLMs distilled down to ~66M parameters. Your sentence is split into tokens, passed through attention layers, and reduced to a two-way score. The percentage is the model's confidence, not ground truth; try a sarcastic sentence and watch it wobble.</p>
+        </details>
+      </div>
+      <div class="card">
+        <div class="tag"># transformers.js · ViT ~90MB</div>
+        <h3>image classification</h3>
+        <div class="drop" id="img-drop">
+          <span>Drop an image or click to upload</span>
+          <input type="file" id="img-file" accept="image/*" hidden>
+        </div>
+        <div class="out" id="img-out"></div>
+        <details class="how">
+          <summary>what's happening here?</summary>
+          <p>ViT chops your image into 16×16-pixel patches and treats them like words in a sentence: vision handled as language. The top-4 list is the model's actual probability distribution, not a single verdict.</p>
+        </details>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tag"># WebLLM · WebGPU</div>
+      <h3>chat with a language model — 100% local</h3>
+      <p class="note" style="margin:0 0 12px">Runs a small instruct model on your machine via WebGPU. First launch downloads the weights (~400MB–900MB, then cached). Zero servers, zero API keys.</p>
+      <div class="row">
+        <select id="llm-model">
+          <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5 0.5B · fastest (~400MB)</option>
+          <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 1B · smarter (~900MB)</option>
+        </select>
+        <button class="act" id="llm-launch">launch local LLM →</button>
+      </div>
+      <div id="llm-status" class="out"></div>
+      <div class="chat" id="llm-chat">
+        <div class="bar-meter" id="llm-progress" style="display:none"><i style="width:0"></i></div>
+        <div class="log-w" id="llm-log"></div>
+        <div class="row">
+          <input type="text" id="llm-in" placeholder="Ask something…" style="flex:1">
+          <button class="act" id="llm-send">send</button>
+        </div>
+        <div class="note" id="llm-speed" style="margin-top:8px"></div>
+      </div>
+      <details class="how">
+        <summary>what's happening here?</summary>
+        <p>The "q4f16" in the model name means the weights are quantized to 4 bits; that's how a billion-parameter model fits in browser memory. The streaming you see is the real generation loop, and the tokens/sec readout is your own hardware's inference speed.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="conduct" class="prose">
+    <h2 class="h">conduct</h2>
+    <p>Be kind. Be open. We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct">Recurse Center social rules</a>.
+    This is a fully open, public forum: assume no privacy, and don't share confidential or proprietary material.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© Deep Learning RTP · est. 2017 · RTP, NC</span>
+    <span>
+      <a href="/speaker.html">lead a session</a> ·
+      <a href="https://discord.gg/sFJD8Xfc3">discord</a> ·
+      <a href="https://groups.google.com/g/deep-learning-rtp">email</a> ·
+      <a href="/events/dlrtp.ics">.ics</a> ·
+      <a href="https://github.com/DeepLearningRTP">github</a>
+    </span>
+  </div>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
