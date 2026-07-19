@@ -29,13 +29,19 @@
   h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,40px);margin:12px 0 8px;letter-spacing:-.01em}
   .lede{color:var(--muted);max-width:70ch;margin:0}
   section{padding:30px 0 4px}
-  h2{font-family:var(--serif);font-weight:600;font-size:22px;border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 16px}
+  h2{font-family:var(--serif);font-weight:600;font-size:22px;border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 10px}
   h2 .mono{font-family:var(--mono);letter-spacing:.04em}
   h2 .n{font:400 13px var(--mono);color:var(--muted);margin-left:12px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-  .grid a{display:block;border:1px solid var(--line);background:var(--panel);padding:5px}
+  .yearnote{color:var(--muted);font-size:15px;max-width:76ch;margin:0 0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;align-items:start}
+  .grid a{display:block;border:1px solid var(--line);background:var(--panel);padding:5px;text-decoration:none;color:inherit}
   .grid a:hover{border-color:var(--accent)}
   .grid img{width:100%;height:120px;object-fit:cover;display:block}
+  .grid a.feat{grid-column:span 2}
+  .grid .feat img{height:252px}
+  .grid .cap{display:block;padding:9px 6px 4px;font-size:13px;line-height:1.55;color:var(--muted)}
+  .grid .cap b{font:600 11px var(--mono);color:var(--accent);letter-spacing:.04em;margin-right:7px}
+  @media(max-width:480px){.grid a.feat{grid-column:span 1}.grid .feat img{height:150px}}
   footer{margin-top:52px;border-top:1px solid var(--line);padding:26px 0 56px;color:var(--muted);font-size:14.5px}
   footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
   footer a{color:var(--muted)}
@@ -52,18 +58,17 @@
   <div class="lede-block">
     <div class="eyebrow">The album</div>
     <h1>Nine years, 120 pictures.</h1>
-    <p class="lede">Everything here is from the group's own Meetup albums: real Wednesdays,
-    DonkeyCars, field trips, whiteboards — and, from the later years, the increasingly
-    unhinged AI-generated event covers. We keep those too; they're part of the record.
-    Hover any picture for the session it came from; click for the full size.</p>
+    <p class="lede">Real rooms, real whiteboards, one DeepDream of North Carolina — and the
+    AI event covers we keep as evidence. Hover for the session; click for full size.</p>
   </div>
   <section>
     <h2><span class="mono">2017</span> <span class="n">20 photos</span></h2>
+    <p class="yearnote">The fast.ai year. Meetups three times a week across Raleigh, Durham, and Chapel Hill; a $250 DonkeyCar in the hallway; and the first group photo was a DeepDream.</p>
     <div class="grid">
       <a href="img/2017-02-06_458149500.jpg" title="Meetup Group Photo Album · 2017-02-06"><img src="img/2017-02-06_458149500.jpg" width="900" height="277" loading="lazy" alt="Meetup Group Photo Album, 2017-02-06"></a>
       <a href="img/2017-02-06_458148394.jpg" title="hi · 2017-02-06"><img src="img/2017-02-06_458148394.jpg" width="900" height="426" loading="lazy" alt="hi, 2017-02-06"></a>
       <a href="img/2017-02-06_458148399.jpg" title="hi · 2017-02-06"><img src="img/2017-02-06_458148399.jpg" width="669" height="445" loading="lazy" alt="hi, 2017-02-06"></a>
-      <a href="img/2017-02-13_458179757.jpg" title="Deep Learning Study Group - fast.ai · 2017-02-13"><img src="img/2017-02-13_458179757.jpg" width="800" height="485" loading="lazy" alt="Deep Learning Study Group - fast.ai, 2017-02-13"></a>
+      <a class="feat" href="img/2017-02-13_458179757.jpg" title="Deep Learning Study Group - fast.ai · 2017-02-13"><img src="img/2017-02-13_458179757.jpg" width="800" height="485" loading="lazy" alt="Deep Learning Study Group - fast.ai, 2017-02-13"><span class="cap"><b class="mono">2017-02-13</b> The first group photo: North Carolina, dreamed by a convnet. February 2017, when running DeepDream yourself was the whole point.</span></a>
       <a href="img/2017-03-27_459781768.jpg" title="Deep Learning Study Group - Durham · 2017-03-27"><img src="img/2017-03-27_459781768.jpg" width="900" height="675" loading="lazy" alt="Deep Learning Study Group - Durham, 2017-03-27"></a>
       <a href="img/2017-03-27_459781771.jpg" title="Deep Learning Study Group - Durham · 2017-03-27"><img src="img/2017-03-27_459781771.jpg" width="900" height="675" loading="lazy" alt="Deep Learning Study Group - Durham, 2017-03-27"></a>
       <a href="img/2017-03-27_459781773.jpg" title="Deep Learning Study Group - Durham · 2017-03-27"><img src="img/2017-03-27_459781773.jpg" width="900" height="675" loading="lazy" alt="Deep Learning Study Group - Durham, 2017-03-27"></a>
@@ -84,14 +89,15 @@
   </section>
   <section>
     <h2><span class="mono">2018</span> <span class="n">26 photos</span></h2>
+    <p class="yearnote">104 meetings. Capsule networks and Attention in the same April, an OpenAI-vs-humans viewing party in August, and the style-transfer era in full swing.</p>
     <div class="grid">
       <a href="img/2018-03-27_469631036.jpg" title="Meetup Group Photo Album · 2018-03-27"><img src="img/2018-03-27_469631036.jpg" width="900" height="592" loading="lazy" alt="Meetup Group Photo Album, 2018-03-27"></a>
       <a href="img/2018-04-15_470456150.jpg" title="Presentation on Capsule Networks - Deep Learning Study Group - Raleigh · 2018-04-15"><img src="img/2018-04-15_470456150.jpg" width="900" height="675" loading="lazy" alt="Presentation on Capsule Networks - Deep Learning Study Group - Raleigh, 2018-04-15"></a>
       <a href="img/2018-04-15_470456158.jpg" title="Presentation on Capsule Networks - Deep Learning Study Group - Raleigh · 2018-04-15"><img src="img/2018-04-15_470456158.jpg" width="900" height="675" loading="lazy" alt="Presentation on Capsule Networks - Deep Learning Study Group - Raleigh, 2018-04-15"></a>
       <a href="img/2018-04-22_470449384.jpg" title="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh · 2018-04-22"><img src="img/2018-04-22_470449384.jpg" width="900" height="675" loading="lazy" alt="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh, 2018-04-22"></a>
-      <a href="img/2018-04-22_470449397.jpg" title="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh · 2018-04-22"><img src="img/2018-04-22_470449397.jpg" width="900" height="675" loading="lazy" alt="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh, 2018-04-22"></a>
+      <a class="feat" href="img/2018-04-22_470449397.jpg" title="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh · 2018-04-22"><img src="img/2018-04-22_470449397.jpg" width="900" height="675" loading="lazy" alt="Presentation: Attention is All you Need! -Deep Learning Study Group - Raleigh, 2018-04-22"><span class="cap"><b class="mono">2018-04-22</b> The one we brag about: a member walks the room through “Attention Is All You Need”, seven weeks before GPT-1 shipped.</span></a>
       <a href="img/2018-04-29_470634228.jpg" title="Hacking with PyTorch, Keras, Tensorflow! - Deep Learning Study Group - Raleigh · 2018-04-29"><img src="img/2018-04-29_470634228.jpg" width="900" height="675" loading="lazy" alt="Hacking with PyTorch, Keras, Tensorflow! - Deep Learning Study Group - Raleigh, 2018-04-29"></a>
-      <a href="img/2018-05-14_471120954.jpg" title="Meetup Group Photo Album · 2018-05-14"><img src="img/2018-05-14_471120954.jpg" width="900" height="269" loading="lazy" alt="Meetup Group Photo Album, 2018-05-14"></a>
+      <a class="feat" href="img/2018-05-14_471120954.jpg" title="Meetup Group Photo Album · 2018-05-14"><img src="img/2018-05-14_471120954.jpg" width="900" height="269" loading="lazy" alt="Meetup Group Photo Album, 2018-05-14"><span class="cap"><b class="mono">2018-05-14</b> Style-transfer week. Mona Lisa did not consent to the Hokusai.</span></a>
       <a href="img/2018-05-16_471173294.jpg" title="Deep Learning for Art, Music and Creativity · 2018-05-16"><img src="img/2018-05-16_471173294.jpg" width="900" height="675" loading="lazy" alt="Deep Learning for Art, Music and Creativity, 2018-05-16"></a>
       <a href="img/2018-05-30_471573187.jpg" title="Meetup Group Photo Album · 2018-05-30"><img src="img/2018-05-30_471573187.jpg" width="800" height="600" loading="lazy" alt="Meetup Group Photo Album, 2018-05-30"></a>
       <a href="img/2018-05-30_471574915.jpg" title="Using Deep Learning to Model Cellular Structure and Function · 2018-05-30"><img src="img/2018-05-30_471574915.jpg" width="900" height="675" loading="lazy" alt="Using Deep Learning to Model Cellular Structure and Function, 2018-05-30"></a>
@@ -101,7 +107,7 @@
       <a href="img/2018-09-30_475030633.jpg" title="Pair Kaggling - Pneumonia Detection - Deep Learning - Raleigh · 2018-09-30"><img src="img/2018-09-30_475030633.jpg" width="900" height="675" loading="lazy" alt="Pair Kaggling - Pneumonia Detection - Deep Learning - Raleigh, 2018-09-30"></a>
       <a href="img/2018-10-04_475226555.jpg" title="Justin Ellis (InfiniaML) on NLP, VQA, Chatbots and more via Visual Dialog! · 2018-10-04"><img src="img/2018-10-04_475226555.jpg" width="900" height="675" loading="lazy" alt="Justin Ellis (InfiniaML) on NLP, VQA, Chatbots and more via Visual Dialog!, 2018-10-04"></a>
       <a href="img/2018-10-04_475226590.jpg" title="Justin Ellis (InfiniaML) on NLP, VQA, Chatbots and more via Visual Dialog! · 2018-10-04"><img src="img/2018-10-04_475226590.jpg" width="900" height="675" loading="lazy" alt="Justin Ellis (InfiniaML) on NLP, VQA, Chatbots and more via Visual Dialog!, 2018-10-04"></a>
-      <a href="img/2018-10-21_475635040.jpg" title="An Only One Step Ahead Guide for ML Projects (with study group after talk) · 2018-10-21"><img src="img/2018-10-21_475635040.jpg" width="900" height="675" loading="lazy" alt="An Only One Step Ahead Guide for ML Projects (with study group after talk), 2018-10-21"></a>
+      <a class="feat" href="img/2018-10-21_475635040.jpg" title="An Only One Step Ahead Guide for ML Projects (with study group after talk) · 2018-10-21"><img src="img/2018-10-21_475635040.jpg" width="900" height="675" loading="lazy" alt="An Only One Step Ahead Guide for ML Projects (with study group after talk), 2018-10-21"><span class="cap"><b class="mono">2018-10-21</b> House epistemics, as drawn by a guest speaker in 2018. Still the official position.</span></a>
       <a href="img/2018-10-21_475635100.jpg" title="An Only One Step Ahead Guide for ML Projects (with study group after talk) · 2018-10-21"><img src="img/2018-10-21_475635100.jpg" width="900" height="675" loading="lazy" alt="An Only One Step Ahead Guide for ML Projects (with study group after talk), 2018-10-21"></a>
       <a href="img/2018-11-15_476508933.jpg" title="Liam Cattell (Conduent) on Lightweight Deep Learning! · 2018-11-15"><img src="img/2018-11-15_476508933.jpg" width="900" height="675" loading="lazy" alt="Liam Cattell (Conduent) on Lightweight Deep Learning!, 2018-11-15"></a>
       <a href="img/2018-11-15_476508942.jpg" title="Liam Cattell (Conduent) on Lightweight Deep Learning! · 2018-11-15"><img src="img/2018-11-15_476508942.jpg" width="900" height="675" loading="lazy" alt="Liam Cattell (Conduent) on Lightweight Deep Learning!, 2018-11-15"></a>
@@ -115,6 +121,7 @@
   </section>
   <section>
     <h2><span class="mono">2019</span> <span class="n">3 photos</span></h2>
+    <p class="yearnote">73 meetings happened this year. Three photographs survive. Everyone was apparently too busy learning.</p>
     <div class="grid">
       <a href="img/2019-01-24_478104274.jpg" title="Hanging with the Jetsons and NCSSM&#x27;s FIRST Robotics team at LifeOmic, Jan. 24! · 2019-01-24"><img src="img/2019-01-24_478104274.jpg" width="900" height="675" loading="lazy" alt="Hanging with the Jetsons and NCSSM&#x27;s FIRST Robotics team at LifeOmic, Jan. 24!, 2019-01-24"></a>
       <a href="img/2019-01-24_478104275.jpg" title="Hanging with the Jetsons and NCSSM&#x27;s FIRST Robotics team at LifeOmic, Jan. 24! · 2019-01-24"><img src="img/2019-01-24_478104275.jpg" width="900" height="675" loading="lazy" alt="Hanging with the Jetsons and NCSSM&#x27;s FIRST Robotics team at LifeOmic, Jan. 24!, 2019-01-24"></a>
@@ -123,14 +130,16 @@
   </section>
   <section>
     <h2><span class="mono">2020</span> <span class="n">1 photo</span></h2>
+    <p class="yearnote">One photo, January. You know what happened next.</p>
     <div class="grid">
       <a href="img/2020-01-08_488027986.jpg" title="Deep Reinforcement Learning Study Group · 2020-01-08"><img src="img/2020-01-08_488027986.jpg" width="900" height="675" loading="lazy" alt="Deep Reinforcement Learning Study Group, 2020-01-08"></a>
     </div>
   </section>
   <section>
     <h2><span class="mono">2022</span> <span class="n">11 photos</span></h2>
+    <p class="yearnote">Back in person: DonkeyCar races over beers, hack nights, and an AI-risk discussion held twelve weeks before ChatGPT made it everyone's discussion.</p>
     <div class="grid">
-      <a href="img/2022-04-27_503874366.jpg" title="Autonomous Vehicles chat and working session · 2022-04-27"><img src="img/2022-04-27_503874366.jpg" width="900" height="807" loading="lazy" alt="Autonomous Vehicles chat and working session, 2022-04-27"></a>
+      <a class="feat" href="img/2022-04-27_503874366.jpg" title="Autonomous Vehicles chat and working session · 2022-04-27"><img src="img/2022-04-27_503874366.jpg" width="900" height="807" loading="lazy" alt="Autonomous Vehicles chat and working session, 2022-04-27"><span class="cap"><b class="mono">2022-04-27</b> The comeback tour: back in person, racing self-driving cars at a brewery.</span></a>
       <a href="img/2022-04-27_503874425.jpg" title="Autonomous Vehicles chat and working session · 2022-04-27"><img src="img/2022-04-27_503874425.jpg" width="900" height="718" loading="lazy" alt="Autonomous Vehicles chat and working session, 2022-04-27"></a>
       <a href="img/2022-05-25_504348185.jpg" title="Meetup Group Photo Album · 2022-05-25"><img src="img/2022-05-25_504348185.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2022-05-25"></a>
       <a href="img/2022-07-05_505349374.jpg" title="Meetup Group Photo Album · 2022-07-05"><img src="img/2022-07-05_505349374.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2022-07-05"></a>
@@ -145,6 +154,7 @@
   </section>
   <section>
     <h2><span class="mono">2023</span> <span class="n">20 photos</span></h2>
+    <p class="yearnote">The LLM era arrives at the Frontier: nanoGPT, Toolformer, protein transformers, and conference rooms named after ACC teams.</p>
     <div class="grid">
       <a href="img/2023-02-07_510326452.jpg" title="nanoGPT by Andrej Karpathy · 2023-02-07"><img src="img/2023-02-07_510326452.jpg" width="900" height="506" loading="lazy" alt="nanoGPT by Andrej Karpathy, 2023-02-07"></a>
       <a href="img/2023-02-16_510490275.jpg" title="Deep Learning Study Group · 2023-02-16"><img src="img/2023-02-16_510490275.jpg" width="900" height="507" loading="lazy" alt="Deep Learning Study Group, 2023-02-16"></a>
@@ -170,6 +180,7 @@
   </section>
   <section>
     <h2><span class="mono">2024</span> <span class="n">32 photos</span></h2>
+    <p class="yearnote">Workshop year — building GPT-2 from scratch, monthly coding nights. Also the year the event-cover generator started expressing itself.</p>
     <div class="grid">
       <a href="img/2024-01-08_518395879.jpg" title="Meetup Group Photo Album · 2024-01-08"><img src="img/2024-01-08_518395879.jpg" width="836" height="470" loading="lazy" alt="Meetup Group Photo Album, 2024-01-08"></a>
       <a href="img/2024-01-09_518395785.jpg" title="Navigating LLM Threats: Detecting Prompt Injections and Jailbreaks · 2024-01-09"><img src="img/2024-01-09_518395785.jpg" width="836" height="470" loading="lazy" alt="Navigating LLM Threats: Detecting Prompt Injections and Jailbreaks, 2024-01-09"></a>
@@ -188,7 +199,7 @@
       <a href="img/2024-06-04_521353128.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353128.jpg" width="900" height="501" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"></a>
       <a href="img/2024-06-04_521353129.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353129.jpg" width="900" height="502" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"></a>
       <a href="img/2024-06-04_521353130.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353130.jpg" width="900" height="496" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"></a>
-      <a href="img/2024-06-04_521353131.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353131.jpg" width="900" height="459" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"></a>
+      <a class="feat" href="img/2024-06-04_521353131.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353131.jpg" width="900" height="459" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"><span class="cap"><b class="mono">2024-06-04</b> The covers turn: executive leadership, as imagined by the event-cover generator. None of these bears has ever attended.</span></a>
       <a href="img/2024-06-04_521353132.jpg" title="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models · 2024-06-04"><img src="img/2024-06-04_521353132.jpg" width="900" height="503" loading="lazy" alt="Fine-Tuning Workshop 4: Deploying Fine-Tuned Models, 2024-06-04"></a>
       <a href="img/2024-06-05_521539691.jpg" title="Meetup Group Photo Album · 2024-06-05"><img src="img/2024-06-05_521539691.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2024-06-05"></a>
       <a href="img/2024-06-07_521572826.jpg" title="Meetup Group Photo Album · 2024-06-07"><img src="img/2024-06-07_521572826.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2024-06-07"></a>
@@ -207,13 +218,14 @@
   </section>
   <section>
     <h2><span class="mono">2026</span> <span class="n">7 photos</span></h2>
+    <p class="yearnote">Back in the saddle. The room is real; the covers, increasingly, are not.</p>
     <div class="grid">
       <a href="img/2026-06-24_534905137.jpg" title="Meetup Group Photo Album · 2026-06-24"><img src="img/2026-06-24_534905137.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-06-24"></a>
       <a href="img/2026-06-24_534905920.jpg" title="Meetup Group Photo Album · 2026-06-24"><img src="img/2026-06-24_534905920.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-06-24"></a>
       <a href="img/2026-07-01_534906174.jpg" title="Meetup Group Photo Album · 2026-07-01"><img src="img/2026-07-01_534906174.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-07-01"></a>
       <a href="img/2026-07-08_535026023.jpg" title="Deep Learning RTP- Back in the Saddle · 2026-07-08"><img src="img/2026-07-08_535026023.jpg" width="900" height="491" loading="lazy" alt="Deep Learning RTP- Back in the Saddle, 2026-07-08"></a>
       <a href="img/2026-07-15_535222759.jpg" title="Meetup Group Photo Album · 2026-07-15"><img src="img/2026-07-15_535222759.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-07-15"></a>
-      <a href="img/2026-07-16_535229039.jpg" title="Meetup Group Photo Album · 2026-07-16"><img src="img/2026-07-16_535229039.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-07-16"></a>
+      <a class="feat" href="img/2026-07-16_535229039.jpg" title="Meetup Group Photo Album · 2026-07-16"><img src="img/2026-07-16_535229039.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-07-16"><span class="cap"><b class="mono">2026-07-16</b> The generator&#x27;s latest: a raccoon consultant presenting at a “Tuesday Tech Showcase”. We meet on Wednesdays. It knows nothing.</span></a>
       <a href="img/2026-07-16_535230289.jpg" title="Meetup Group Photo Album · 2026-07-16"><img src="img/2026-07-16_535230289.jpg" width="900" height="506" loading="lazy" alt="Meetup Group Photo Album, 2026-07-16"></a>
     </div>
   </section>
