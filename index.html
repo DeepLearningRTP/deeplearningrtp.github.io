@@ -128,6 +128,15 @@
   .fact span{color:var(--muted)}
   .fact b{font-weight:600}
 
+  /* the room */
+  .room .lede{margin-bottom:26px}
+  .room figure{margin:0;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:10px}
+  .room img{width:100%;height:auto;display:block;border-radius:4px}
+  .room figcaption{padding:10px 4px 2px;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .room .when{font:600 11px/1 var(--mono);letter-spacing:.08em;color:var(--accent);margin-right:8px}
+  .room .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+  .room .dream{margin-top:14px}
+
   /* resources */
   .cols{columns:2;column-gap:44px;margin-top:6px}
   @media(max-width:600px){.cols{columns:1}}
@@ -240,6 +249,41 @@
       <div class="fact"><span>Track record</span><b><a href="/history/">400 meetings since 2017</a></b></div>
     </div>
     <p class="note" style="margin-top:10px">Remote? One Zoom registration covers every week — <a href="https://us04web.zoom.us/j/75202351347?pwd=a3xZ3xA4mYosyNdZBvb8zfxbaHTa11.1" target="_blank" rel="noopener">register once</a> and you're set.</p>
+  </div>
+</section>
+
+<section id="room" class="room">
+  <div class="wrap">
+    <div class="eyebrow">The room</div>
+    <h2>Nine years of Wednesdays.</h2>
+    <p class="lede">From the group's own records. Not a stock photo among them.</p>
+    <figure>
+      <img src="/photos/2018-04-attention.jpg" width="1440" height="1080" loading="lazy"
+        alt="A member at the seminar table points at an Attention Mechanism slide, LSTM diagrams on screen, the room following along on laptops">
+      <figcaption><span class="when">APR 2018</span>A member walks the room through "Attention Is All You Need" — seven weeks before GPT-1 shipped. <a href="/history/">The record has the receipts</a>.</figcaption>
+    </figure>
+    <div class="strip">
+      <figure>
+        <img src="/photos/2017-09-donkeycar.jpg" width="900" height="675" loading="lazy"
+          alt="A member leans over a laptop below a wall screen showing the DonkeyCar driving interface">
+        <figcaption><span class="when">SEP 2017</span>Teaching a $250 DonkeyCar to drive the hallway.</figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2018-10-ml-solves-everything.jpg" width="900" height="675" loading="lazy"
+          alt="A projected hand-drawn unicorn labeled ML above the words 'solves everything!'">
+        <figcaption><span class="when">OCT 2018</span>A visiting data scientist's opening argument.</figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2022-04-races.jpg" width="900" height="807" loading="lazy"
+          alt="Members around brewery picnic tables with two small self-driving RC cars between the glasses">
+        <figcaption><span class="when">APR 2022</span>Back in person: self-driving races over beers.</figcaption>
+      </figure>
+    </div>
+    <figure class="dream">
+      <img src="/photos/2017-02-deepdream-nc.jpg" width="800" height="485" loading="lazy"
+        alt="A map of North Carolina rendered by DeepDream, every county swirling with dog faces and spirals">
+      <figcaption><span class="when">FEB 2017</span>The group's first "group photo": North Carolina, dreamed by a convnet. DeepDream was the frontier then; the point was always to run it ourselves.</figcaption>
+    </figure>
   </div>
 </section>
 
