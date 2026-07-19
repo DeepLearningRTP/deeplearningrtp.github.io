@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Learning RTP — almanac (design preview)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval' http://localhost:8400; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
+<style>
+  :root{
+    --bg:#faf7f2; --ink:#1c1a17; --muted:#6e675d; --line:#ddd5c8;
+    --accent:#8a3318; --accent-soft:#f3e3dc; --card:#ffffff;
+    --serif:Georgia,'Times New Roman',serif;
+    --label:Verdana,Geneva,sans-serif;
+    --col:880px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--serif)}
+  .wrap{max-width:var(--col);margin:0 auto;padding:0 24px}
+  a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+  a:hover{background:var(--accent-soft)}
+  .lbl{font-family:var(--label);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* masthead */
+  .mast{border-bottom:3px double var(--line);text-align:center;padding:42px 0 30px}
+  .mast .kicker{font-family:var(--label);font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+  .mast h1{font-size:clamp(34px,6vw,52px);font-weight:normal;margin:12px 0 8px;line-height:1.1}
+  .mast .sub{color:var(--muted);font-style:italic}
+  .mast nav{margin-top:20px;font-family:var(--label);font-size:12px;letter-spacing:.06em}
+  .mast nav a{color:var(--muted);text-decoration:none;margin:0 10px}
+  .mast nav a:hover{color:var(--accent);background:none}
+
+  /* stat plates */
+  .stats{display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--card);margin:34px 0 0}
+  .stat{flex:1 1 130px;padding:16px 10px;text-align:center;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat b{display:block;font-size:28px;font-weight:normal}
+  .stat span{font-family:var(--label);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .stat b a{text-decoration:none;color:var(--ink)}
+  .stat b a:hover{color:var(--accent);background:none}
+
+  h2{font-size:26px;font-weight:normal;border-bottom:1px solid var(--line);padding-bottom:8px;margin:56px 0 20px}
+  h2 small{font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:12px}
+  p{margin:0 0 16px;max-width:72ch}
+
+  /* this week */
+  .entry{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);padding:20px 24px}
+  .entry .when{font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  .entry h3{font-size:22px;font-weight:normal;margin:0 0 4px;line-height:1.3}
+  .entry .spk{font-style:italic;color:var(--muted);margin:0 0 12px}
+  .entry p{margin:0 0 14px}
+  .acts a{display:inline-block;border:1px solid var(--accent);color:var(--accent);text-decoration:none;
+    padding:7px 15px;margin:0 8px 8px 0;font-size:14.5px}
+  .acts a:hover{background:var(--accent);color:var(--card)}
+  .acts a.pri{background:var(--accent);color:var(--card)}
+  .acts a.pri:hover{background:#6d2812}
+  .also{margin-top:14px;font-size:15px;color:var(--muted)}
+
+  /* plates */
+  .plates{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:640px){.plates{grid-template-columns:1fr}}
+  .plates figure{margin:0;background:var(--card);border:1px solid var(--line);padding:12px}
+  .plates figure.wide{grid-column:1/-1}
+  .plates img{width:100%;height:auto;display:block}
+  .plates figcaption{padding:10px 2px 0;font-size:14px;color:var(--muted);line-height:1.55}
+  .plates .when{font-family:var(--label);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-right:8px}
+
+  /* the record */
+  .tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+  .tl li{position:relative;padding:6px 0 6px 24px}
+  .tl li::before{content:"";position:absolute;left:-5px;top:16px;width:8px;height:8px;border-radius:50%;background:var(--line)}
+  .tl li.hl::before{background:var(--accent)}
+  .tl .d{font-family:var(--label);font-size:11px;color:var(--muted);letter-spacing:.05em;display:inline-block;min-width:88px}
+  .tl .notewhy{font-family:var(--label);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--card);
+    background:var(--accent);padding:2px 7px;border-radius:3px;margin-left:8px;white-space:nowrap}
+  .chart{display:flex;align-items:flex-end;gap:8px;height:110px;margin:26px 0 4px}
+  .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;text-align:center}
+  .bar i{display:block;background:var(--accent);opacity:.82;border-radius:2px 2px 0 0;min-height:2px}
+  .bar.zero i{background:var(--line)}
+  .bar b{font-weight:normal;font-size:12px;margin-bottom:4px;color:var(--muted)}
+  .axis{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:6px;font-family:var(--label);font-size:10.5px;color:var(--muted)}
+  .axis span{flex:1;text-align:center}
+  .footnote{font-size:14px;color:var(--muted);font-style:italic}
+
+  /* format */
+  .kv{border:1px solid var(--line);background:var(--card);padding:4px 20px;max-width:460px}
+  .kv div{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+  .kv div:last-child{border-bottom:none}
+  .kv span:first-child{font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+
+  /* reading list */
+  .res{columns:2;column-gap:44px}
+  @media(max-width:600px){.res{columns:1}}
+  .res .grp{break-inside:avoid;margin-bottom:18px}
+  .res h3{font-family:var(--label);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:normal;color:var(--accent);margin:0 0 8px}
+  .res ul{margin:0;padding-left:20px;font-size:15px}
+  .res li{margin:5px 0}
+
+  /* apparatus (demos) */
+  .card{background:var(--card);border:1px solid var(--line);padding:18px 20px;margin-top:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .tag{font-family:var(--label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .card h3{font-size:18px;font-weight:normal;margin:8px 0 12px}
+  textarea,input[type=text]{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    padding:10px 12px;font:15px var(--serif);resize:vertical}
+  textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:0}
+  .act{display:inline-block;margin-top:12px;padding:8px 18px;background:var(--accent);color:var(--card);border:none;
+    font:15px var(--serif);cursor:pointer}
+  .act:hover{background:#6d2812}
+  .act:disabled{opacity:.5;cursor:default}
+  select{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:8px;font:15px var(--serif)}
+  .out{margin-top:12px;min-height:20px;font-size:15px}
+  .bar-meter{height:8px;background:var(--line);overflow:hidden;margin-top:6px}
+  .bar-meter>i{display:block;height:100%;background:var(--accent)}
+  .resultline{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .drop{border:1.5px dashed var(--line);padding:22px;text-align:center;color:var(--muted);cursor:pointer;background:var(--bg)}
+  .drop.hover{border-color:var(--accent);color:var(--ink)}
+  .drop img{max-width:100%;max-height:200px;margin-top:12px}
+  .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .note{font-size:14px;color:var(--muted)}
+  .pos{color:var(--accent);font-weight:bold}
+  .neg{color:#3d4f7c;font-weight:bold}
+  details.how{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+  details.how summary{cursor:pointer;color:var(--accent);font-size:14px}
+  details.how p{margin:8px 0 0;font-size:14.5px;color:var(--muted);max-width:64ch}
+  .chat{display:none;margin-top:16px}
+  .chat.on{display:block}
+  .log{background:var(--bg);border:1px solid var(--line);padding:12px;height:280px;overflow:auto;font-size:15px}
+  .msg{padding:7px 11px;margin:8px 0;max-width:88%;white-space:pre-wrap;word-wrap:break-word;border:1px solid var(--line);background:var(--card)}
+  .msg.user{background:var(--accent-soft);border-color:var(--accent);margin-left:auto}
+  .msg.sys{background:transparent;border:none;color:var(--muted);font-size:13px;text-align:center;max-width:100%}
+
+  footer{margin:70px 0 0;border-top:3px double var(--line);padding:26px 0 60px;font-size:14px;color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="kicker">A community record · Volume IX · 2026</div>
+    <h1>Deep Learning RTP</h1>
+    <div class="sub">four hundred meetings and counting · Research Triangle Park, North Carolina</div>
+    <nav>
+      <a href="/">home</a> <a href="/events/">sessions</a> <a href="/history/">the record</a>
+      <a href="#plates">plates</a> <a href="#reading">reading list</a> <a href="#apparatus">apparatus</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="stats">
+    <div class="stat"><b><a href="/history/">400</a></b><span>recorded meetings</span></div>
+    <div class="stat"><b>2017</b><span>established</span></div>
+    <div class="stat"><b>Wed</b><span>noon–2pm ET · weekly</span></div>
+    <div class="stat"><b>$0</b><span>now and always</span></div>
+  </div>
+
+  <section id="week">
+    <h2>This week in the record</h2>
+    <article class="entry">
+      <p class="when">Next session · Wed Jul 22 · 12:00–2:00 pm ET · The Frontier, RTP + Zoom</p>
+      <h3>Emergent Sparsity in Frozen-Random-CNN Deep RL</h3>
+      <p class="spk">presented by Scott Norton, from his own manuscript (arXiv pending)</p>
+      <p>Playing Pong through 3 neurons: freeze a random CNN, train an RL agent on top,
+      and the agent routes everything through 1–3 of 64 neurons with no sparsity
+      objective anywhere. No RL background required.</p>
+      <div class="acts">
+        <a class="pri" href="https://www.meetup.com/deep-learning-rtp/events/315516897/">RSVP</a>
+        <a href="/events/dlrtp.ics">Calendar (.ics)</a>
+        <a href="https://groups.google.com/g/deep-learning-rtp">Email list</a>
+        <a href="https://discord.gg/sFJD8Xfc3">Discord</a>
+      </div>
+      <p class="also">Then Jul 29: <a href="https://www.meetup.com/deep-learning-rtp/events/315598882/">Agents - Let's get this over with</a>, on Weng's harness post. Full slate on the <a href="/events/">sessions page</a>.</p>
+    </article>
+  </section>
+
+  <section id="plates">
+    <h2>From the plates <small>no stock photos, ever</small></h2>
+    <div class="plates">
+      <figure class="wide">
+        <img src="/photos/2018-04-attention.jpg" width="1440" height="1080" loading="lazy"
+          alt="A member at the seminar table points at an Attention Mechanism slide, the room following on laptops">
+        <figcaption><span class="when">Plate I · Apr 2018</span>Walking the room through
+        "Attention Is All You Need", seven weeks before GPT-1 shipped. <a href="/history/">The record has the receipts</a>.</figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2022-04-races.jpg" width="900" height="807" loading="lazy"
+          alt="Members around brewery picnic tables with two small self-driving RC cars between the glasses">
+        <figcaption><span class="when">Plate II · Apr 2022</span>Back in person: self-driving races over beers.</figcaption>
+      </figure>
+      <figure>
+        <img src="/photos/2018-10-ml-solves-everything.jpg" width="900" height="675" loading="lazy"
+          alt="A projected hand-drawn unicorn labeled ML above the words 'solves everything!'">
+        <figcaption><span class="when">Plate III · Oct 2018</span>A visiting data scientist's opening argument. The room remained skeptical.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="record">
+    <h2>The record <small>selected entries</small></h2>
+    <ul class="tl">
+      <li><span class="d">2026-07-15</span>LLM Architecture in 2026 — DeepSeek Technical Report</li>
+      <li><span class="d">2026-07-08</span>Reverse-Engineering a Language Model</li>
+      <li class="hl"><span class="d">2023-02-07</span>Build your own GPT with nanoGPT<span class="notewhy">weeks after publication</span></li>
+      <li class="hl"><span class="d">2022-09-07</span>Preventing an AI-related catastrophe<span class="notewhy">prescient</span></li>
+      <li class="hl"><span class="d">2018-04-22</span>Attention Is All You Need<span class="notewhy">prescient</span></li>
+      <li><span class="d">2017-02-09</span>First meeting: a fast.ai study circle</li>
+    </ul>
+    <div class="chart" aria-hidden="true">
+      <div class="bar"><b>123</b><i style="height:100px"></i></div>
+      <div class="bar"><b>104</b><i style="height:85px"></i></div>
+      <div class="bar"><b>73</b><i style="height:59px"></i></div>
+      <div class="bar"><b>6</b><i style="height:5px"></i></div>
+      <div class="bar zero"><b>0</b><i style="height:1px"></i></div>
+      <div class="bar"><b>27</b><i style="height:22px"></i></div>
+      <div class="bar"><b>36</b><i style="height:29px"></i></div>
+      <div class="bar"><b>31</b><i style="height:25px"></i></div>
+    </div>
+    <div class="axis" aria-hidden="true">
+      <span>2017</span><span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span>
+    </div>
+    <p class="footnote">Meetings per year, Meetup era. The 2020–2021 gap is the pandemic hiatus.
+    <a href="/history/">All 400 entries, searchable →</a></p>
+  </section>
+
+  <section id="format">
+    <h2>The format</h2>
+    <p>A study group, not a lecture series. Between sessions, work through a course or
+    project at your own pace. Wednesdays are where you bring what it raised: the parts
+    that clicked, the parts that didn't, the thing you built to find out. All experience
+    levels and professional backgrounds are welcome.</p>
+    <div class="kv">
+      <div><span>when</span><b>Wednesdays, 12–2pm ET</b></div>
+      <div><span>where</span><span>The Frontier, RTP + <a href="https://us04web.zoom.us/j/75202351347?pwd=a3xZ3xA4mYosyNdZBvb8zfxbaHTa11.1">Zoom</a></span></div>
+      <div><span>cost</span><b>Free</b></div>
+    </div>
+  </section>
+
+  <section id="correspondence">
+    <h2>Correspondence <small>lead a session; we'll fill the room</small></h2>
+    <p>Every session is member-led. Pick a paper you want understood (or take one off our
+    list) and the group handles the announcement, the room, and the recap, which credits
+    you permanently in the record. Read the paper twice; that's the bar.
+    <a href="/speaker.html">Exactly what to expect →</a></p>
+  </section>
+
+  <section id="reading">
+    <h2>The reading list <small>the path we hand every newcomer</small></h2>
+    <div class="res">
+      <div class="grp">
+        <h3>Getting started</h3>
+        <ul>
+          <li><a href="https://www.3blue1brown.com/topics/neural-networks">3Blue1Brown — Neural Networks</a></li>
+          <li><a href="http://introtodeeplearning.com/">MIT 6.S191 — Intro to Deep Learning</a></li>
+          <li><a href="https://course.fast.ai/">fast.ai — Practical Deep Learning</a> (and <a href="https://course.fast.ai/Lessons/part2.html">Part 2</a>)</li>
+          <li><a href="http://neuralnetworksanddeeplearning.com/">Nielsen — Neural Networks &amp; Deep Learning</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>Build an LLM from scratch</h3>
+        <ul>
+          <li><a href="https://jalammar.github.io/illustrated-transformer/">Alammar — The Illustrated Transformer</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ">Karpathy — Zero to Hero</a></li>
+          <li><a href="https://github.com/rasbt/LLMs-from-scratch">Raschka — Build an LLM (From Scratch)</a></li>
+          <li><a href="https://modernaicourse.org/">CMU — Intro to Modern AI</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>Free textbooks</h3>
+        <ul>
+          <li><a href="https://udlbook.github.io/udlbook/">Understanding Deep Learning</a></li>
+          <li><a href="https://www.bishopbook.com/">Bishop — Foundations &amp; Concepts</a></li>
+          <li><a href="https://probml.github.io/pml-book/">Murphy — Probabilistic ML</a></li>
+          <li><a href="https://d2l.ai/">Dive into Deep Learning</a></li>
+          <li><a href="https://mml-book.github.io/">Mathematics for ML</a></li>
+          <li><a href="https://www.statlearning.com/">Intro to Statistical Learning</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>More courses</h3>
+        <ul>
+          <li><a href="https://stanford-cs336.github.io/">Stanford CS336 — LLMs from Scratch</a></li>
+          <li><a href="https://cs231n.github.io/">Stanford CS231n — Vision</a></li>
+          <li><a href="https://web.stanford.edu/class/cs224n/">Stanford CS224n — NLP</a></li>
+          <li><a href="https://github.com/fastai/numerical-linear-algebra">fast.ai — Computational Linear Algebra</a></li>
+        </ul>
+      </div>
+      <div class="grp">
+        <h3>Run models yourself</h3>
+        <ul>
+          <li><a href="https://huggingface.co/docs/transformers.js">Transformers.js — ML in the browser</a></li>
+          <li><a href="https://webllm.mlc.ai/">WebLLM — LLMs on WebGPU</a></li>
+          <li><a href="https://pytorch.org/tutorials/">PyTorch tutorials</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="apparatus">
+    <h2>Apparatus <small>models run in this tab; nothing leaves your device</small></h2>
+    <div class="grid2">
+      <div class="card">
+        <div class="tag">Transformers.js · DistilBERT ~65MB</div>
+        <h3>Sentiment analysis</h3>
+        <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
+        <div><button class="act" id="sent-run">Analyze</button></div>
+        <div class="out" id="sent-out"></div>
+        <details class="how">
+          <summary>What's happening here?</summary>
+          <p>DistilBERT is a small transformer, the same architecture family as today's LLMs distilled down to ~66M parameters. The percentage is the model's confidence, not ground truth; try a sarcastic sentence and watch it wobble.</p>
+        </details>
+      </div>
+      <div class="card">
+        <div class="tag">Transformers.js · ViT ~90MB</div>
+        <h3>Image classification</h3>
+        <div class="drop" id="img-drop">
+          <span>Drop an image or click to upload</span>
+          <input type="file" id="img-file" accept="image/*" hidden>
+        </div>
+        <div class="out" id="img-out"></div>
+        <details class="how">
+          <summary>What's happening here?</summary>
+          <p>ViT chops your image into 16×16-pixel patches and treats them like words in a sentence: vision handled as language. The top-4 list is the model's actual probability distribution.</p>
+        </details>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tag">WebLLM · WebGPU</div>
+      <h3>Chat with a language model, 100% local</h3>
+      <p class="note" style="margin:0 0 12px">Runs a small instruct model on your machine via WebGPU. First launch downloads the weights (~400MB–900MB, then cached). Zero servers, zero API keys.</p>
+      <div class="row">
+        <select id="llm-model">
+          <option value="Qwen2.5-0.5B-Instruct-q4f16_1-MLC">Qwen2.5 0.5B · fastest (~400MB)</option>
+          <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 1B · smarter (~900MB)</option>
+        </select>
+        <button class="act" id="llm-launch">Launch local LLM →</button>
+      </div>
+      <div id="llm-status" class="out"></div>
+      <div class="chat" id="llm-chat">
+        <div class="bar-meter" id="llm-progress" style="display:none"><i style="width:0"></i></div>
+        <div class="log" id="llm-log"></div>
+        <div class="row">
+          <input type="text" id="llm-in" placeholder="Ask something…" style="flex:1">
+          <button class="act" id="llm-send">Send</button>
+        </div>
+        <div class="note" id="llm-speed" style="margin-top:8px"></div>
+      </div>
+      <details class="how">
+        <summary>What's happening here?</summary>
+        <p>The "q4f16" in the model name means the weights are quantized to 4 bits; that's how a billion-parameter model fits in browser memory. The tokens/sec readout is your own hardware's inference speed.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="conduct">
+    <h2>Conduct</h2>
+    <p>Be kind. Be open. We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct">Recurse Center social rules</a>.
+    This is a fully open, public forum: assume no privacy, and don't share confidential
+    or proprietary material.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Deep Learning RTP · est. 2017 · Research Triangle Park, NC</span>
+    <span>
+      <a href="/speaker.html">Lead a session</a> ·
+      <a href="https://discord.gg/sFJD8Xfc3">Discord</a> ·
+      <a href="https://groups.google.com/g/deep-learning-rtp">Email</a> ·
+      <a href="/events/dlrtp.ics">.ics</a> ·
+      <a href="https://github.com/DeepLearningRTP">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
