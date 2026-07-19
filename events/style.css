@@ -32,7 +32,8 @@ a { color: var(--accent); text-underline-offset: 2px; }
   border-left: 3px solid var(--accent); background: var(--accent-wash);
   padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 4px 4px 0;
 }
-.citation h2 { margin-top: 0.15rem; }
+.citation h1, .citation h2 { margin-top: 0.15rem; }
+.citation .mono { color: var(--ink); }
 .cite-label { text-transform: uppercase; color: var(--accent); margin: 0; }
 .actions { margin-top: 1rem; }
 .btn {
@@ -41,6 +42,8 @@ a { color: var(--accent); text-underline-offset: 2px; }
   color: var(--accent); text-decoration: none; font-size: 0.9rem;
 }
 .btn:hover, .btn:focus-visible { background: var(--accent); color: var(--paper); }
+.btn.primary { background: var(--accent); color: var(--paper); }
+.btn.primary:hover, .btn.primary:focus-visible { background: #1a3a54; }
 .entry-list { list-style: none; padding: 0; }
 .entry-list li { padding: 0.45rem 0; border-bottom: 1px solid var(--rule); }
 .entry-list .mono { display: inline-block; min-width: 7.5rem; }
