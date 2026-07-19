@@ -95,7 +95,8 @@
   .bar nav{margin-left:auto;display:flex;gap:22px}
   .bar nav a{color:var(--muted);font-size:14px;text-decoration:none}
   .bar nav a:hover{color:var(--ink)}
-  @media(max-width:640px){.bar nav{display:none}}
+  /* phones keep the cross-page destinations; in-page anchors are one scroll away */
+  @media(max-width:640px){.bar nav{gap:14px} .bar nav a.here{display:none}}
 
   /* hero */
   .hero{padding:80px 0 60px;border-top:none}
@@ -104,10 +105,11 @@
   .hero p.sub{font-size:20px;color:var(--muted);max-width:52ch;margin:20px 0 0}
   .meetline{margin-top:26px;font-size:16px;color:var(--ink)}
   .meetline b{font-weight:600}
-  .btn{display:inline-block;margin-top:28px;padding:12px 22px;background:var(--accent);color:#fff;
+  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .btn{display:inline-block;padding:12px 22px;background:var(--accent);color:#fff;
     border-radius:4px;font-weight:600;font-size:15px;text-decoration:none}
   .btn:hover{background:var(--accent-ink);color:#fff}
-  .btn.ghost{background:transparent;color:var(--accent-ink);border:1px solid var(--line);margin-left:10px}
+  .btn.ghost{background:transparent;color:var(--accent-ink);border:1px solid var(--line)}
   .btn.ghost:hover{border-color:var(--accent);background:transparent}
 
   /* meetings */
@@ -128,6 +130,7 @@
   /* resources */
   .cols{columns:2;column-gap:44px;margin-top:6px}
   @media(max-width:600px){.cols{columns:1}}
+  .cols .grp{break-inside:avoid}
   .cols h3{font-size:15px;font-family:var(--sans);font-weight:700;color:var(--accent);letter-spacing:.02em;
     margin:20px 0 6px;break-after:avoid}
   .cols ul{margin:0 0 4px;padding-left:18px}
@@ -184,13 +187,13 @@
   <div class="wrap">
     <span class="name">Deep Learning RTP</span>
     <nav>
-      <a href="#meetings">Meetings</a>
+      <a class="here" href="#meetings">Meetings</a>
       <a href="/events/">Calendar</a>
       <a href="/history/">Past events</a>
-      <a href="#about">About</a>
-      <a href="#lead">Lead a session</a>
-      <a href="#resources">Resources</a>
-      <a href="#demos">Demos</a>
+      <a class="here" href="#about">About</a>
+      <a class="here" href="#lead">Lead a session</a>
+      <a class="here" href="#resources">Resources</a>
+      <a class="here" href="#demos">Demos</a>
     </nav>
   </div>
 </header>
@@ -200,8 +203,8 @@
     <div class="kicker">Research Triangle Park, NC · Since 2017</div>
     <h1>We understand and build neural networks.</h1>
     <p class="sub">A weekly study group. Each session is a paper review or a technical deep dive: come to ask questions, answer them, or present what you've figured out. All experience levels welcome.</p>
-    <div class="meetline">🗓 <b>Wednesdays, noon–2pm ET</b> · The Frontier, RTP + Zoom · free</div>
-    <div>
+    <div class="meetline"><b>Wednesdays, noon–2pm ET</b> · The Frontier, RTP + Zoom · free</div>
+    <div class="btns">
       <a class="btn" href="/events/">RSVP to the next session</a>
       <a class="btn ghost" href="https://groups.google.com/g/deep-learning-rtp" target="_blank" rel="noopener">Get the weekly email</a>
       <a class="btn ghost" href="#meetings">See what's next</a>
@@ -254,6 +257,7 @@
     <h2>Where to start.</h2>
     <p class="lede">The organizers' recommended path, the same list we hand every newcomer.</p>
     <div class="cols">
+      <div class="grp">
       <h3>Getting started</h3>
       <ul>
         <li><a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown — Neural Networks</a> (incl. LLMs &amp; transformers)</li>
@@ -261,6 +265,8 @@
         <li><a href="https://course.fast.ai/" target="_blank" rel="noopener">fast.ai — Practical Deep Learning</a> (and <a href="https://course.fast.ai/Lessons/part2.html" target="_blank" rel="noopener">Part 2</a>)</li>
         <li><a href="http://neuralnetworksanddeeplearning.com/" target="_blank" rel="noopener">Nielsen — Neural Networks &amp; Deep Learning</a></li>
       </ul>
+      </div>
+      <div class="grp">
       <h3>Build an LLM from scratch</h3>
       <ul>
         <li><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">Alammar — The Illustrated Transformer</a></li>
@@ -268,6 +274,8 @@
         <li><a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Raschka — Build an LLM (From Scratch)</a></li>
         <li><a href="https://modernaicourse.org/" target="_blank" rel="noopener">CMU — Intro to Modern AI</a></li>
       </ul>
+      </div>
+      <div class="grp">
       <h3>Free textbooks</h3>
       <ul>
         <li><a href="https://udlbook.github.io/udlbook/" target="_blank" rel="noopener">Understanding Deep Learning</a></li>
@@ -277,6 +285,8 @@
         <li><a href="https://mml-book.github.io/" target="_blank" rel="noopener">Mathematics for ML</a></li>
         <li><a href="https://www.statlearning.com/" target="_blank" rel="noopener">Intro to Statistical Learning</a></li>
       </ul>
+      </div>
+      <div class="grp">
       <h3>More courses</h3>
       <ul>
         <li><a href="https://stanford-cs336.github.io/" target="_blank" rel="noopener">Stanford CS336 — LLMs from Scratch</a></li>
@@ -284,12 +294,15 @@
         <li><a href="https://web.stanford.edu/class/cs224n/" target="_blank" rel="noopener">Stanford CS224n — NLP</a></li>
         <li><a href="https://github.com/fastai/numerical-linear-algebra" target="_blank" rel="noopener">fast.ai — Computational Linear Algebra</a></li>
       </ul>
+      </div>
+      <div class="grp">
       <h3>Run models yourself</h3>
       <ul>
         <li><a href="https://huggingface.co/docs/transformers.js" target="_blank" rel="noopener">Transformers.js — ML in the browser</a></li>
         <li><a href="https://webllm.mlc.ai/" target="_blank" rel="noopener">WebLLM — LLMs on WebGPU</a></li>
         <li><a href="https://pytorch.org/tutorials/" target="_blank" rel="noopener">PyTorch tutorials</a></li>
       </ul>
+      </div>
     </div>
     <p class="contribute">Got a resource we're missing? Share it on <a href="https://groups.google.com/g/deep-learning-rtp" target="_blank" rel="noopener">the group</a> or at a session →</p>
   </div>
@@ -373,6 +386,7 @@
   <div class="wrap">
     <span>© Deep Learning RTP · Research Triangle Park, NC</span>
     <span>
+      <a href="/speaker.html">Lead a session</a> ·
       <a href="https://groups.google.com/g/deep-learning-rtp" target="_blank" rel="noopener">Email list</a> ·
       <a href="/events/dlrtp.ics">Calendar (.ics)</a> ·
       <a href="https://www.meetup.com/deep-learning-rtp/" target="_blank" rel="noopener">Meetup</a> ·

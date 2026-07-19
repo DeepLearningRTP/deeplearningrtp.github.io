@@ -25,13 +25,21 @@ const getSentiment = async () => {
     "Xenova/distilbert-base-uncased-finetuned-sst-2-english",
   ));
 };
+// network failures surface as "Failed to fetch" — say what actually went wrong
+const errMsg = (e) =>
+  /fetch|network/i.test(e.message)
+    ? "Couldn't download the model — check your connection and try again."
+    : e.message;
+
 $("#sent-run").onclick = async () => {
   const text = $("#sent-in").value.trim();
   const out = $("#sent-out");
+  const btn = $("#sent-run");
   if (!text) {
     out.textContent = "Type something first.";
     return;
   }
+  btn.disabled = true;
   out.textContent = "Loading model & running…";
   try {
     const clf = await getSentiment();
@@ -44,7 +52,9 @@ $("#sent-run").onclick = async () => {
       <div class="bar-meter"><i style="width:${pct}%"></i></div>
       <div class="note">inference: ${ms} ms, locally in this tab</div>`;
   } catch (e) {
-    out.textContent = "Error: " + e.message;
+    out.textContent = "Error: " + errMsg(e);
+  } finally {
+    btn.disabled = false;
   }
 };
 
@@ -79,6 +89,10 @@ drop.addEventListener("drop", (e) => {
 file.onchange = () => file.files[0] && classify(file.files[0]);
 let prevUrl;
 async function classify(f) {
+  if (!f.type.startsWith("image/")) {
+    imgOut.textContent = "That's not an image file — try a JPG, PNG, or WebP.";
+    return;
+  }
   if (prevUrl) URL.revokeObjectURL(prevUrl);
   const url = (prevUrl = URL.createObjectURL(f));
   drop.innerHTML = `<span>Change image</span><img src="${url}" alt="uploaded preview">`;
@@ -97,7 +111,7 @@ async function classify(f) {
         .join("") +
       `<div class="note">inference: ${ms} ms, locally in this tab</div>`;
   } catch (e) {
-    imgOut.textContent = "Error: " + e.message;
+    imgOut.textContent = "Error: " + errMsg(e);
   }
 }
 
@@ -155,7 +169,12 @@ $("#llm-launch").onclick = async () => {
 async function send() {
   const input = $("#llm-in"),
     text = input.value.trim();
-  if (!text || !engine) return;
+  if (!text) return;
+  if (!engine) {
+    status.textContent =
+      "Launch the model first — the button above downloads it to your browser.";
+    return;
+  }
   input.value = "";
   addMsg("user", text);
   history.push({ role: "user", content: text });
