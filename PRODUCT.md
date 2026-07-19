@@ -25,7 +25,7 @@ A study group, not a lecture series — you participate, you don't spectate. Eve
 - Primary and secondary CTA: deliberately multi-channel — Danny doesn't yet know which channel will prove most effective, so Luma RSVP, the .ics calendar feed, the email group, and Discord are all first-class doors. Don't collapse them into one funnel yet.
 - The line a visitor remembers after 10 seconds: "They've been at it for years" — 120+ sessions since 2017, a durable institution, not a pop-up AI meetup.
 - Belief ladder (newcomers): (1) this group is real and active — next meetings are visible; (2) it's for people at my level — all levels, discussion not lecture; (3) showing up is easy and low-risk — free, hybrid, no signup wall; then connect via whichever channel suits.
-- Proof on hand: the session archive (120 past sessions 2017–2024, linked from the site) and real photos of sessions. Photos not yet in the repo — collect into `.impeccable/assets/proof/`.
+- Proof on hand: the full meeting record at `/history/` (400 meetings 2017–2024 from the Meetup era, with "ahead of the curve" receipts), the 82-topic Build & Learn materials archive, and real photos of sessions. Photos not yet in the repo — collect into `.impeccable/assets/proof/`.
 
 ## Brand Personality
 

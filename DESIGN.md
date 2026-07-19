@@ -85,7 +85,7 @@ components:
 
 Everyone around one table with the paper in the middle. The system is warm, plain, and serious: paper-toned backgrounds, ink text, hairline rules doing the structural work, and a single accent spent where attention belongs. It reads like a well-kept study group, not a startup — rigorous, welcoming, unpretentious, in that order.
 
-The site carries **two deliberate registers**. The **Front Door** (home, speaker page) is warm cream with a spruce-teal accent: serif headings over a quiet system sans, monospace eyebrows, room to breathe. The **Bibliography** (events pages) is cooler ink-on-paper with a citation-navy accent: Charter serif body, mono labels, list discipline. They are siblings, not drift within a register — but never mix their accents on one page.
+The site carries **two deliberate registers**. The **Front Door** (home, speaker page) is warm cream with a spruce-teal accent: serif headings over a quiet system sans, monospace eyebrows, room to breathe. The **Bibliography** (events pages) is cooler ink-on-paper with a citation-navy accent: Charter serif body, mono labels, list discipline. They are siblings, not drift within a register — but never mix their accents on one page. A third register, **The Annals** (`history/index.html`), is a sealed historical document: oxblood-on-paper Georgia, frozen as generated in June 2026. It takes no new design work, and its period features (stat tiles, side-stripe cards, Verdana labels) are grandfathered as part of the artifact.
 
 The system explicitly rejects the hype-y crypto/AI landing page (big claims, countdown urgency, "join the revolution") and the neon "AI aesthetic" (dark-mode gradients, glow). Nothing here manufactures excitement; the track record does the persuading.
 
@@ -114,7 +114,7 @@ Two sibling paper-and-ink palettes, each with exactly one accent.
 ### Named Rules
 **The One Lamp Rule.** Each register owns exactly one accent and spends it like lamplight: metadata, dates, actions, focus. A second accent hue on the same page is forbidden; teal never appears on Bibliography pages, navy never on the Front Door.
 
-**The Two Registers Rule.** Front Door (cream + teal) and Bibliography (paper + navy) are deliberate sibling identities. Keep each internally consistent; don't average them into one lukewarm palette.
+**The Two Registers Rule.** Front Door (cream + teal) and Bibliography (paper + navy) are deliberate sibling identities. Keep each internally consistent; don't average them into one lukewarm palette. The Annals (oxblood `#8a3318` on paper) is a sealed third register: never restyle it, never borrow its palette for live pages.
 
 ## 3. Typography
 

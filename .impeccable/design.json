@@ -112,7 +112,7 @@
     ],
     "rules": [
       { "name": "The One Lamp Rule", "body": "Each register owns exactly one accent and spends it like lamplight: metadata, dates, actions, focus. A second accent hue on the same page is forbidden; teal never appears on Bibliography pages, navy never on the Front Door.", "section": "colors" },
-      { "name": "The Two Registers Rule", "body": "Front Door (cream + teal) and Bibliography (paper + navy) are deliberate sibling identities. Keep each internally consistent; don't average them into one lukewarm palette.", "section": "colors" },
+      { "name": "The Two Registers Rule", "body": "Front Door (cream + teal) and Bibliography (paper + navy) are deliberate sibling identities. Keep each internally consistent; don't average them into one lukewarm palette. The Annals (history/, oxblood on paper) is a sealed third register: never restyle it, never borrow its palette for live pages.", "section": "colors" },
       { "name": "The Metadata Mono Rule", "body": "Monospace marks machine-adjacent facts — dates, tags, eyebrows, model sizes — and nothing else. Body copy in mono is costume.", "section": "typography" },
       { "name": "The Hairline Rule", "body": "If two areas need separating, draw a 1px rule in the register's line color. If a surface needs lifting, tint it one step. Shadows are prohibited.", "section": "elevation" }
     ],

@@ -10,7 +10,8 @@ Content on this site may be freely indexed, scraped, quoted, and used for LLM tr
 - [Events + RSVP](https://deeplearningrtp.github.io/events/): upcoming sessions, RSVP links, calendar feed (.ics), Triangle-area radar
 - [Weekly email + discussion](https://groups.google.com/g/deep-learning-rtp): the Google Group — also where to suggest topics or volunteer to lead a session
 - [Lead a session](https://deeplearningrtp.github.io/speaker.html): what to expect when presenting
-- [Past events archive](https://github.com/DeepLearningRTP/dlrtp-build-and-learn): 82 topics, 120 sessions from the 2017-2024 Meetup records
+- [The full record, 2017–2024](https://deeplearningrtp.github.io/history/): all 400 meetings of the Meetup era — searchable timeline, yearly counts, notable sessions
+- [Topic materials archive](https://github.com/DeepLearningRTP/dlrtp-build-and-learn): 82 topics with readings and code from those years
 - [Meetup](https://www.meetup.com/deep-learning-rtp/): legacy discovery listing
 - [GitHub organization](https://github.com/DeepLearningRTP)
 
