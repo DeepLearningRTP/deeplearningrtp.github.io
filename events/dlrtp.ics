@@ -4,10 +4,11 @@ PRODID:-//dlrtp-ops//EN
 X-WR-CALNAME:Deep Learning RTP
 BEGIN:VEVENT
 UID:2026-07-15-deepseek-technical-report@dlrtp
-DTSTAMP:20260719T191034Z
+DTSTAMP:20260719T195723Z
 DTSTART:20260715T160000Z
 DTEND:20260715T180000Z
-SUMMARY:DLRTP Weekly — DeepSeek Technical Report
+SUMMARY:DLRTP Weekly — LLM Architecture in 2026 - DeepSeek Technical Repo
+ rt
 LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
 DESCRIPTION:LLM architecture in 2026\, read through the DeepSeek technical 
  report. Discussion-format — skim the paper if you can\, come anyway if y
@@ -16,18 +17,34 @@ DESCRIPTION:LLM architecture in 2026\, read through the DeepSeek technical
 URL:https://www.meetup.com/deep-learning-rtp/
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-07-22-mech-interp-follow-up@dlrtp
-DTSTAMP:20260719T191034Z
+UID:2026-07-22-emergent-sparsity-frozen-random-cnn@dlrtp
+DTSTAMP:20260719T195723Z
 DTSTART:20260722T160000Z
 DTEND:20260722T180000Z
-SUMMARY:DLRTP Weekly — Attribution graphs hands-on: replicate one case st
- udy
+SUMMARY:DLRTP Weekly — Emergent Sparsity in Frozen-Random-CNN Deep RL (Sc
+ ott Norton)
 LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
-DESCRIPTION:Hands-on follow-up to the July 8 biology-paper session: we'll r
- eplicate one attribution-graph case study from Anthropic's interpretabilit
- y work\, tracing how a model actually computes an answer. Bring a laptop i
- f you want to run along\; discussion-format\, all levels welcome. Bring yo
- ur lunch.\nPaper: https://transformer-circuits.pub/2025/attribution-graphs
- /biology.html
+DESCRIPTION:Playing Pong through 3 neurons: freeze a randomly initialized C
+ NN\, train a deep RL agent on top\, and the agent spontaneously compresses
+  all task-relevant information through as few as 1-3 of the 64 neurons in 
+ its first fully-connected layer\, with no sparsity objective anywhere. Sco
+ tt Norton presents his manuscript (arXiv pending) documenting the phenomen
+ on in Atari Pong. No RL background required\; the setting is informal and 
+ open to everyone. Find us in the Eagles room off the main coworking area.\
+ nRSVP: https://www.meetup.com/deep-learning-rtp/events/315516897/
+URL:https://www.meetup.com/deep-learning-rtp/events/315516897/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-29-agents-lets-get-this-over-with@dlrtp
+DTSTAMP:20260719T195723Z
+DTSTART:20260729T160000Z
+DTEND:20260729T180000Z
+SUMMARY:DLRTP Weekly — Agents - Let's get this over with
+LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
+DESCRIPTION:Paper review of Lilian Weng's "Harness Engineering for Self-Imp
+ rovement". Informal and open to everyone\; suggestions for future papers a
+ nd topics welcome.\nPaper: https://lilianweng.github.io/posts/2026-07-04-h
+ arness/\nRSVP: https://www.meetup.com/deep-learning-rtp/events/315598882/
+URL:https://www.meetup.com/deep-learning-rtp/events/315598882/
 END:VEVENT
 END:VCALENDAR
