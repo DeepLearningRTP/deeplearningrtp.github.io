@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-19T17:31:15Z",
+  "title": "Design System: Deep Learning RTP",
+  "extensions": {
+    "colorMeta": {
+      "spruce-teal": { "role": "primary", "displayName": "Spruce Teal", "canonical": "#0f5f57", "tonalRamp": ["oklch(20% 0.05 180)", "oklch(30% 0.07 180)", "oklch(40% 0.08 180)", "oklch(50% 0.09 180)", "oklch(60% 0.09 180)", "oklch(72% 0.07 180)", "oklch(85% 0.05 180)", "oklch(95% 0.02 180)"] },
+      "teal-ink": { "role": "primary", "displayName": "Teal Ink", "canonical": "#0a4b44" },
+      "citation-navy": { "role": "primary", "displayName": "Citation Navy", "canonical": "#234e70", "tonalRamp": ["oklch(20% 0.05 250)", "oklch(30% 0.07 250)", "oklch(40% 0.08 250)", "oklch(50% 0.08 250)", "oklch(62% 0.07 250)", "oklch(75% 0.05 250)", "oklch(87% 0.03 250)", "oklch(95% 0.015 250)"] },
+      "navy-wash": { "role": "primary", "displayName": "Navy Wash", "canonical": "#eef2f6" },
+      "cream-bg": { "role": "neutral", "displayName": "Cream Bg", "canonical": "#f7f4ec", "tonalRamp": ["oklch(18% 0.01 90)", "oklch(32% 0.012 90)", "oklch(46% 0.014 90)", "oklch(60% 0.016 90)", "oklch(72% 0.018 90)", "oklch(84% 0.018 90)", "oklch(92% 0.015 90)", "oklch(97% 0.01 90)"] },
+      "warm-panel": { "role": "neutral", "displayName": "Warm Panel", "canonical": "#fffdf8" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1b1b1a" },
+      "muted-olive": { "role": "neutral", "displayName": "Muted Olive", "canonical": "#6b6a63" },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e4dfd2" },
+      "biblio-paper": { "role": "neutral", "displayName": "Biblio Paper", "canonical": "#fcfcfa" },
+      "biblio-ink": { "role": "neutral", "displayName": "Biblio Ink", "canonical": "#1c1c1a" },
+      "quiet-gray": { "role": "neutral", "displayName": "Quiet Gray", "canonical": "#6d6d66" },
+      "biblio-rule": { "role": "neutral", "displayName": "Biblio Rule", "canonical": "#d9d9d2" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings, serif chapter-opener voice." },
+      "body": { "displayName": "Body (Front Door)", "purpose": "Reading text on home/speaker pages; system sans at 17px/1.7." },
+      "biblio-body": { "displayName": "Body (Bibliography)", "purpose": "Charter serif reading text on events pages, 17px/1.55." },
+      "label": { "displayName": "Label", "purpose": "Mono metadata: eyebrows, tags, dates. Never voice." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "reduced-motion-kill", "value": "@media (prefers-reduced-motion: reduce) { * { animation: none; transition: none } }", "purpose": "Global kill-switch; any added motion must respect it." }
+    ],
+    "breakpoints": [
+      { "name": "nav-collapse", "value": "640px" },
+      { "name": "biblio-sm", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid teal action; the RSVP/analyze verb.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">RSVP to the next session</a>",
+      "css": ".ds-btn-primary { display: inline-block; padding: 12px 22px; background: #0f5f57; color: #fff; border-radius: 4px; font-weight: 600; font-size: 15px; text-decoration: none; font-family: ui-sans-serif, system-ui, sans-serif; } .ds-btn-primary:hover { background: #0a4b44; } .ds-btn-primary:focus-visible { outline: 2px solid #0f5f57; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Hairline-bordered secondary action.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Get the weekly email</a>",
+      "css": ".ds-btn-ghost { display: inline-block; padding: 12px 22px; background: transparent; color: #0a4b44; border: 1px solid #e4dfd2; border-radius: 4px; font-weight: 600; font-size: 15px; text-decoration: none; font-family: ui-sans-serif, system-ui, sans-serif; } .ds-btn-ghost:hover { border-color: #0f5f57; }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "chip",
+      "refersTo": "label",
+      "description": "Mono uppercase section marker in accent teal.",
+      "html": "<div class=\"ds-eyebrow\">Next meetings</div>",
+      "css": ".ds-eyebrow { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-weight: 600; font-size: 12px; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; color: #0f5f57; }"
+    },
+    {
+      "name": "Event Row",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Baseline-aligned mono date + title row, hairline-ruled; the signature meetings list.",
+      "html": "<div class=\"ds-evt\"><span class=\"ds-evt-date\">JUL 15</span><span class=\"ds-evt-t\">DeepSeek Technical Report</span></div>",
+      "css": ".ds-evt { display: flex; gap: 20px; align-items: baseline; padding: 15px 0; border-top: 1px solid #e4dfd2; border-bottom: 1px solid #e4dfd2; font-family: ui-sans-serif, system-ui, sans-serif; color: #1b1b1a; } .ds-evt-date { font: 600 13px/1.3 ui-monospace, 'SF Mono', Menlo, monospace; color: #0f5f57; min-width: 74px; letter-spacing: 0.02em; } .ds-evt-t { font-size: 16px; }"
+    },
+    {
+      "name": "Demo Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat warm-panel card with hairline border; houses the in-browser ML demos.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-tag\">Transformers.js · DistilBERT ~65MB</div><h3 class=\"ds-card-h\">Sentiment analysis</h3><p class=\"ds-card-p\">Runs entirely in your browser.</p></div>",
+      "css": ".ds-card { border: 1px solid #e4dfd2; border-radius: 8px; background: #fffdf8; padding: 22px; font-family: ui-sans-serif, system-ui, sans-serif; } .ds-card-tag { font: 600 11px/1 ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6a63; } .ds-card-h { font-size: 17px; font-weight: 700; margin: 8px 0 12px; color: #1b1b1a; } .ds-card-p { margin: 0; font-size: 15px; color: #6b6a63; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field, hairline border, teal focus outline.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Ask something…\">",
+      "css": ".ds-input { width: 100%; background: #fff; border: 1px solid #e4dfd2; color: #1b1b1a; border-radius: 5px; padding: 11px 13px; font: 15px ui-sans-serif, system-ui, sans-serif; } .ds-input:focus { outline: 2px solid #0f5f57; outline-offset: 0; }"
+    },
+    {
+      "name": "Citation Card",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Bibliography register's signature featured-event affordance; navy wash + 3px left rule.",
+      "html": "<div class=\"ds-citation\"><p class=\"ds-cite-label\">Next session</p><h2 class=\"ds-cite-h\">DeepSeek Technical Report</h2><p class=\"ds-cite-p\">Wed Jul 15 · noon–2pm · The Frontier + Zoom</p></div>",
+      "css": ".ds-citation { border-left: 3px solid #234e70; background: #eef2f6; padding: 16px 20px; border-radius: 0 4px 4px 0; font-family: Charter, 'Bitstream Charter', Cambria, Georgia, serif; color: #1c1c1a; } .ds-cite-label { font-family: 'Berkeley Mono', ui-monospace, Menlo, monospace; font-size: 0.82rem; letter-spacing: 0.01em; text-transform: uppercase; color: #234e70; margin: 0; } .ds-cite-h { font-size: 1.15rem; margin: 0.15rem 0 0.25rem; } .ds-cite-p { margin: 0; color: #6d6d66; font-size: 0.95rem; }"
+    },
+    {
+      "name": "Site Nav",
+      "kind": "nav",
+      "refersTo": "label",
+      "description": "Sticky translucent cream bar; serif wordmark, muted sans links.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav-name\">Deep Learning RTP</span><nav class=\"ds-nav-links\"><a href=\"#\">Meetings</a><a href=\"#\">About</a><a href=\"#\">Resources</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 24px; padding: 16px 24px; background: rgba(247,244,236,0.92); border-bottom: 1px solid #e4dfd2; backdrop-filter: blur(6px); } .ds-nav-name { font-family: ui-serif, Georgia, serif; font-weight: 600; font-size: 18px; color: #1b1b1a; } .ds-nav-links { margin-left: auto; display: flex; gap: 22px; } .ds-nav-links a { color: #6b6a63; font-size: 14px; text-decoration: none; font-family: ui-sans-serif, system-ui, sans-serif; } .ds-nav-links a:hover { color: #1b1b1a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Seminar Table",
+    "overview": "Everyone around one table with the paper in the middle. The system is warm, plain, and serious: paper-toned backgrounds, ink text, hairline rules doing the structural work, and a single accent spent where attention belongs. It reads like a well-kept study group, not a startup — rigorous, welcoming, unpretentious, in that order. The site carries two deliberate registers: the Front Door (home, speaker page) in warm cream with a spruce-teal accent, and the Bibliography (events pages) in cooler ink-on-paper with a citation-navy accent. They are siblings, not drift — but never mix their accents on one page.",
+    "keyCharacteristics": [
+      "Paper tones + ink text; one accent per register, spent deliberately",
+      "Hairline 1px rules carry all structure; zero shadows",
+      "Serif display over sans (Front Door) or Charter serif throughout (Bibliography)",
+      "Monospace reserved for metadata: eyebrows, dates, tags",
+      "Quiet and bookish interaction — flat surfaces, small radii, whispered hovers"
+    ],
+    "rules": [
+      { "name": "The One Lamp Rule", "body": "Each register owns exactly one accent and spends it like lamplight: metadata, dates, actions, focus. A second accent hue on the same page is forbidden; teal never appears on Bibliography pages, navy never on the Front Door.", "section": "colors" },
+      { "name": "The Two Registers Rule", "body": "Front Door (cream + teal) and Bibliography (paper + navy) are deliberate sibling identities. Keep each internally consistent; don't average them into one lukewarm palette.", "section": "colors" },
+      { "name": "The Metadata Mono Rule", "body": "Monospace marks machine-adjacent facts — dates, tags, eyebrows, model sizes — and nothing else. Body copy in mono is costume.", "section": "typography" },
+      { "name": "The Hairline Rule", "body": "If two areas need separating, draw a 1px rule in the register's line color. If a surface needs lifting, tint it one step. Shadows are prohibited.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do spend the register's single accent on metadata, dates, and actions only (The One Lamp Rule); everything else is ink and paper.",
+      "Do structure with 1px hairlines (#e4dfd2 / #d9d9d2) and one-step surface tints; keep every surface flat.",
+      "Do keep mono for metadata (dates, tags, eyebrows) at small sizes with wide tracking.",
+      "Do keep the existing prefers-reduced-motion kill-switch on any motion you add.",
+      "Do let proof carry the page: real meeting rows, the archive, working demos — claims never outrun evidence."
+    ],
+    "donts": [
+      "Don't build anything resembling the hype-y crypto/AI landing: big claims, countdown urgency, 'join the revolution' copy.",
+      "Don't use the neon AI aesthetic: dark-mode gradients, glowing purple, glassmorphism-as-decoration, sci-fi chrome.",
+      "Don't add box-shadows, a second accent hue per page, or cross-pollinate teal onto Bibliography pages (or navy onto the Front Door).",
+      "Don't use gradient text, side-stripe accents on new components (the Citation Card is the one grandfathered, signature exception), or icon-topped identical card grids.",
+      "Don't exceed the ~760px prose column; this is a reading site, not a dashboard."
+    ]
+  }
+}

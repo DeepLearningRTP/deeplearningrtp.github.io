@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://deeplearningrtp.github.io/">
 <!-- ponytail: script-src-only CSP; connect-src lockdown is the upgrade path once model hosts are pinned. -->
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval'; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval' http://localhost:8400; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
 <!-- generated:jsonld:start -->
 <script type="application/ld+json">
 {
@@ -200,7 +200,7 @@
   <div class="wrap">
     <div class="kicker">Research Triangle Park, NC</div>
     <h1>We understand and build neural networks.</h1>
-    <p class="sub">A weekly study group. Each session is a paper review or a technical deep dive — come to ask questions, answer them, or present what you've figured out. All experience levels welcome.</p>
+    <p class="sub">A weekly study group. Each session is a paper review or a technical deep dive: come to ask questions, answer them, or present what you've figured out. All experience levels welcome.</p>
     <div class="meetline">🗓 <b>Wednesdays, noon–2pm ET</b> · The Frontier, RTP + Zoom · free</div>
     <div>
       <a class="btn" href="/events/">RSVP to the next session</a>
@@ -228,7 +228,7 @@
     <div class="eyebrow">About</div>
     <h2>A study group, not a lecture series.</h2>
     <p class="lede" style="margin-bottom:18px">Deep Learning RTP is for people who want to <b>understand and build</b> neural networks.</p>
-    <p>Each weekly session is a paper review or a technical deep dive. Between sessions, work through a course or project at your own pace — then come to ask questions, answer them, or present what you've figured out. All experience levels and professional backgrounds are welcome.</p>
+    <p>Between sessions, work through a course or project at your own pace. Wednesdays are where you bring what it raised: the parts that clicked, the parts that didn't, the thing you built to find out. All experience levels and professional backgrounds are welcome.</p>
     <div class="facts">
       <div class="fact"><span>When</span><b>Wednesdays, 12–2pm ET</b></div>
       <div class="fact"><span>Where</span><b>The Frontier, RTP + Zoom</b></div>
@@ -243,8 +243,8 @@
   <div class="wrap">
     <div class="eyebrow">Lead a session</div>
     <h2>Present a paper. We'll fill the room.</h2>
-    <p class="lede">Every session is member-led. Pick a paper you want understood — or take one off our list — and the group handles the rest: the session gets announced everywhere, you get a ready-to-post blurb for your own network, and the recap credits you permanently in the archive.</p>
-    <p>The format is an hour of guided discussion, not a lecture — <a href="/speaker.html">here's exactly what to expect</a>. Claim a Wednesday by posting to <a href="https://groups.google.com/g/deep-learning-rtp" target="_blank" rel="noopener">the group</a> or raising your hand at any session.</p>
+    <p class="lede">Every session is member-led. Pick a paper you want understood (or take one off our list) and the group handles the rest: the session gets announced everywhere, you get a ready-to-post blurb for your own network, and the recap credits you permanently in the archive.</p>
+    <p>The format is an hour of guided discussion, not a lecture; <a href="/speaker.html">here's exactly what to expect</a>. Claim a Wednesday by posting to <a href="https://groups.google.com/g/deep-learning-rtp" target="_blank" rel="noopener">the group</a> or raising your hand at any session.</p>
   </div>
 </section>
 
@@ -252,7 +252,7 @@
   <div class="wrap">
     <div class="eyebrow">Learn</div>
     <h2>Where to start.</h2>
-    <p class="lede">The organizers' recommended path — the same list we point newcomers to on Meetup.</p>
+    <p class="lede">The organizers' recommended path, the same list we hand every newcomer.</p>
     <div class="cols">
       <h3>Getting started</h3>
       <ul>
@@ -299,7 +299,7 @@
   <div class="wrap">
     <div class="eyebrow">Live demo · nothing leaves your device</div>
     <h2>Machine learning, running in this tab.</h2>
-    <p class="lede">No server, no API keys, no uploads. The models below download to your browser and run on your own hardware — the client-side inference the group digs into. Click a demo to load it (first run fetches the model).</p>
+    <p class="lede">No server, no API keys, no uploads. The models below download to your browser and run on your own hardware. This is the client-side inference the group digs into; click a demo to load it (first run fetches the model).</p>
 
     <div class="grid2">
       <div class="card">
@@ -310,7 +310,7 @@
         <div class="out" id="sent-out"></div>
         <details class="how">
           <summary>What's happening here?</summary>
-          <p>DistilBERT is a small transformer — the same architecture family as today's LLMs, distilled to ~66M parameters. Your sentence is split into tokens, passed through attention layers, and reduced to a two-way score. The percentage is the model's confidence, not ground truth — try a sarcastic sentence and watch it wobble.</p>
+          <p>DistilBERT is a small transformer, the same architecture family as today's LLMs distilled down to ~66M parameters. Your sentence is split into tokens, passed through attention layers, and reduced to a two-way score. The percentage is the model's confidence, not ground truth; try a sarcastic sentence and watch it wobble.</p>
           <p>The classic visual walkthrough: <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">The Illustrated Transformer</a>.</p>
         </details>
       </div>
@@ -325,7 +325,7 @@
         <div class="out" id="img-out"></div>
         <details class="how">
           <summary>What's happening here?</summary>
-          <p>ViT (Vision Transformer) chops your image into 16×16-pixel patches and treats them like words in a sentence — vision handled as language. The top-4 list you see is the model's actual probability distribution over its guesses, not a single verdict.</p>
+          <p>ViT (Vision Transformer) chops your image into 16×16-pixel patches and treats them like words in a sentence: vision handled as language. The top-4 list you see is the model's actual probability distribution over its guesses, not a single verdict.</p>
           <p>Deeper: the vision lectures in <a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191</a> and <a href="https://cs231n.github.io/" target="_blank" rel="noopener">CS231n</a>.</p>
         </details>
       </div>
@@ -354,8 +354,8 @@
       </div>
       <details class="how">
         <summary>What's happening here?</summary>
-        <p>The "q4f16" in the model name means the network's weights are quantized to 4 bits — that's how a billion-parameter model fits in browser memory. Replies are generated one token at a time; the streaming you see is the real generation loop, and the tokens/sec readout is your own hardware's inference speed.</p>
-        <p>Want to build one? <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Raschka's Build an LLM (From Scratch)</a> and <a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy's Zero to Hero</a> — both on the list above.</p>
+        <p>The "q4f16" in the model name means the network's weights are quantized to 4 bits; that's how a billion-parameter model fits in browser memory. Replies are generated one token at a time; the streaming you see is the real generation loop, and the tokens/sec readout is your own hardware's inference speed.</p>
+        <p>Want to build one? <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Raschka's Build an LLM (From Scratch)</a> and <a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">Karpathy's Zero to Hero</a> are both on the list above.</p>
       </details>
     </div>
   </div>
@@ -365,7 +365,7 @@
   <div class="wrap">
     <div class="eyebrow">Code of conduct</div>
     <h2>Be kind. Be open.</h2>
-    <p class="lede" style="max-width:66ch">We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct" target="_blank" rel="noopener">Recurse Center social rules</a>. Harassment isn't tolerated; organizers may take any action they deem appropriate. Deep Learning RTP is a fully open, public forum — assume no privacy, and please don't share confidential, proprietary, or sensitive material. The group isn't liable for content shared by individual members, visitors, or speakers.</p>
+    <p class="lede" style="max-width:66ch">We follow the spirit of the <a href="https://www.recurse.com/code-of-conduct" target="_blank" rel="noopener">Recurse Center social rules</a>. Harassment isn't tolerated; organizers may take any action they deem appropriate. Deep Learning RTP is a fully open, public forum: assume no privacy, and please don't share confidential, proprietary, or sensitive material. The group isn't liable for content shared by individual members, visitors, or speakers.</p>
   </div>
 </section>
 
