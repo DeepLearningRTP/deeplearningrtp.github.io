@@ -89,6 +89,10 @@
   .ev.open .body{display:block}
   .ev .note{margin:8px 0 4px 74px;max-width:640px;font-size:15px;background:var(--accent-soft);
             border-left:3px solid var(--accent);padding:10px 14px}
+  .topnav{padding:14px 0 0;font-family:Verdana,Geneva,sans-serif;font-size:12px}
+  .topnav a{color:var(--muted);text-decoration:none}
+  .topnav a:hover{color:var(--accent)}
+  .yearnav a.home{color:var(--accent);margin-right:auto}
   footer{margin:80px 0 0;border-top:3px double var(--line);padding:28px 0 60px;
          font-size:14px;color:var(--muted)}
   blockquote{margin:26px 0;padding:6px 26px;border-left:3px solid var(--accent);
@@ -97,6 +101,8 @@
 </style>
 </head>
 <body>
+
+<nav class="topnav wrap"><a href="/">← deeplearningrtp.github.io</a></nav>
 
 <header class="wrap">
   <div class="kicker">A community record · Research Triangle Park, North Carolina</div>
@@ -160,7 +166,7 @@
       <input type="search" id="q" placeholder="Search 400 events…">
       <label><input type="checkbox" id="only-hl"> Notable events only</label>
     </div>
-    <div class="yearnav" id="yearnav"></div>
+    <div class="yearnav" id="yearnav"><a class="home" href="/">← Home</a></div>
     <div id="timeline"></div>
   </section>
 
