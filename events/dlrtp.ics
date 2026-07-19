@@ -4,7 +4,7 @@ PRODID:-//dlrtp-ops//EN
 X-WR-CALNAME:Deep Learning RTP
 BEGIN:VEVENT
 UID:2026-07-15-deepseek-technical-report@dlrtp
-DTSTAMP:20260719T190711Z
+DTSTAMP:20260719T191034Z
 DTSTART:20260715T160000Z
 DTEND:20260715T180000Z
 SUMMARY:DLRTP Weekly — DeepSeek Technical Report
@@ -14,5 +14,20 @@ DESCRIPTION:LLM architecture in 2026\, read through the DeepSeek technical
  ou can't. Bring your lunch.\nPaper: https://arxiv.org/abs/2412.19437\nRSVP
  : https://www.meetup.com/deep-learning-rtp/
 URL:https://www.meetup.com/deep-learning-rtp/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-07-22-mech-interp-follow-up@dlrtp
+DTSTAMP:20260719T191034Z
+DTSTART:20260722T160000Z
+DTEND:20260722T180000Z
+SUMMARY:DLRTP Weekly — Attribution graphs hands-on: replicate one case st
+ udy
+LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
+DESCRIPTION:Hands-on follow-up to the July 8 biology-paper session: we'll r
+ eplicate one attribution-graph case study from Anthropic's interpretabilit
+ y work\, tracing how a model actually computes an answer. Bring a laptop i
+ f you want to run along\; discussion-format\, all levels welcome. Bring yo
+ ur lunch.\nPaper: https://transformer-circuits.pub/2025/attribution-graphs
+ /biology.html
 END:VEVENT
 END:VCALENDAR
