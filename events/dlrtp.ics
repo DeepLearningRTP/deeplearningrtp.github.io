@@ -4,7 +4,7 @@ PRODID:-//dlrtp-ops//EN
 X-WR-CALNAME:Deep Learning RTP
 BEGIN:VEVENT
 UID:2026-07-15-deepseek-technical-report@dlrtp
-DTSTAMP:20260724T002518Z
+DTSTAMP:20260724T114704Z
 DTSTART:20260715T160000Z
 DTEND:20260715T180000Z
 SUMMARY:DLRTP Weekly — LLM Architecture in 2026 - DeepSeek Technical Repo
@@ -18,7 +18,7 @@ URL:https://www.meetup.com/deep-learning-rtp/
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-22-emergent-sparsity-frozen-random-cnn@dlrtp
-DTSTAMP:20260724T002518Z
+DTSTAMP:20260724T114704Z
 DTSTART:20260722T160000Z
 DTEND:20260722T180000Z
 SUMMARY:DLRTP Weekly — Emergent Sparsity in Frozen-Random-CNN Deep RL (Sc
@@ -36,7 +36,7 @@ URL:https://www.meetup.com/deep-learning-rtp/events/315516897/
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-29-agents-lets-get-this-over-with@dlrtp
-DTSTAMP:20260724T002518Z
+DTSTAMP:20260724T114704Z
 DTSTART:20260729T160000Z
 DTEND:20260729T180000Z
 SUMMARY:DLRTP Weekly — Agents - Let's get this over with
