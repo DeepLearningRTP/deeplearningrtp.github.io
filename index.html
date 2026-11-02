@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://deeplearningrtp.github.io/">
 <!-- ponytail: script-src-only CSP; connect-src lockdown is the upgrade path once model hosts are pinned. -->
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://cdn.jsdelivr.net 'wasm-unsafe-eval' http://localhost:8400; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' blob: https://cdn.jsdelivr.net 'wasm-unsafe-eval' http://localhost:8400; worker-src 'self' blob:; object-src 'none'; base-uri 'none'">
 <!-- generated:jsonld:start -->
 <script type="application/ld+json">
 {
@@ -172,6 +172,34 @@
   .drop img{max-width:100%;max-height:200px;border-radius:5px;margin-top:12px}
   .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
   .note{font-size:13px;color:var(--muted)}
+  .act.ghost{background:transparent;color:var(--accent-ink);border:1px solid var(--accent)}
+  .act.ghost:hover{background:var(--bg)}
+  .temp{display:flex;align-items:center;gap:6px}
+  .temp b{font-variant-numeric:tabular-nums;min-width:2.2em}
+  .toks{display:flex;flex-wrap:wrap;gap:3px;margin-top:14px;font:13px/1.4 var(--mono)}
+  .toks span{padding:1px 4px;border-radius:3px;background:var(--bg);border:1px solid var(--line);white-space:pre}
+  .toks span:nth-child(even){background:#fff}
+  .cand{display:grid;grid-template-columns:minmax(7em,auto) 1fr 4em;align-items:center;gap:10px;width:100%;
+    padding:4px 6px;border:0;border-bottom:1px dashed var(--line);background:none;font:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+  .cand:hover{background:var(--bg)}
+  .cand code{font:14px var(--mono);white-space:pre}
+  .cand .bar-meter{margin:0}
+  .cand b{text-align:right;font-variant-numeric:tabular-nums}
+  .kv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 14px}
+  .kv-grid select{width:100%;min-width:0}
+  .kv-grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+  @media(max-width:640px){.kv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.kv-grid label:first-child{grid-column:1/-1}}
+  .stack{display:flex;height:14px;border-radius:5px;overflow:hidden;background:var(--line);margin:10px 0 4px}
+  .stack i{display:block;height:100%}
+  .stack .w{background:var(--accent)}
+  .stack .c{background:var(--muted)}
+  .stack.over{outline:2px solid #a3402f}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+  .hit{padding:8px 0;border-bottom:1px dashed var(--line)}
+  .hit .meta{font:12px var(--mono);color:var(--muted)}
+  .hit .t{font-weight:600}
+  .hit p{margin:2px 0 0;font-size:13.5px;color:var(--muted)}
   .pos{color:var(--accent);font-weight:700}
   .neg{color:#a3402f;font-weight:700}
   details.how{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px}
@@ -357,36 +385,61 @@
   <div class="wrap">
     <div class="eyebrow">Live demo · nothing leaves your device</div>
     <h2>Machine learning, running in this tab.</h2>
-    <p class="lede">No server, no API keys, no uploads. The models below download to your browser and run on your own hardware. This is the client-side inference the group digs into; click a demo to load it (first run fetches the model).</p>
+    <p class="lede">No server, no API keys, no uploads. The models below download to your browser and run on your own hardware, and each demo ties to something the group has worked through on a Wednesday. Click one to load it (first run fetches the model).</p>
 
-    <div class="grid2">
-      <div class="card">
-        <div class="tag">Transformers.js · DistilBERT ~65MB</div>
-        <h3>Sentiment analysis</h3>
-        <textarea id="sent-in" rows="3" placeholder="Type a sentence…">Wednesday's paper review completely clicked for me.</textarea>
-        <div><button class="act" id="sent-run">Analyze</button></div>
-        <div class="out" id="sent-out"></div>
-        <details class="how">
-          <summary>What's happening here?</summary>
-          <p>DistilBERT is a small transformer, the same architecture family as today's LLMs distilled down to ~66M parameters. Your sentence is split into tokens, passed through attention layers, and reduced to a two-way score. The percentage is the model's confidence, not ground truth; try a sarcastic sentence and watch it wobble.</p>
-          <p>The classic visual walkthrough: <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">The Illustrated Transformer</a>.</p>
-        </details>
+    <div class="card">
+      <div class="tag">Transformers.js · SmolLM2-135M ~137MB</div>
+      <h3>Next-token explorer</h3>
+      <p class="note" style="margin:0 0 12px">A language model never writes a sentence. It scores every token it knows, one step at a time. Type a prompt, see how it gets cut into tokens, then pick the next one yourself.</p>
+      <textarea id="nt-in" rows="2">Every Wednesday at noon, the deep learning group meets to</textarea>
+      <div class="row">
+        <button class="act" id="nt-run" style="margin-top:0">Predict next token</button>
+        <button class="act ghost" id="nt-sample" style="margin-top:0" disabled>Sample one</button>
+        <label class="note temp">temperature <input type="range" id="nt-temp" min="0.1" max="2" step="0.1" value="1"> <b id="nt-temp-v">1.0</b></label>
       </div>
+      <div class="toks" id="nt-toks"></div>
+      <div class="out" id="nt-out"></div>
+      <details class="how">
+        <summary>What's happening here?</summary>
+        <p>Your text is split into tokens (the boxes): common words are one token, rare ones get chopped up. The model reads them all and outputs one score for each of its 49,152 vocabulary entries. Softmax turns the scores into the probabilities you see. Temperature divides the scores before softmax: low makes the top pick dominate, high flattens the field. Chat models do exactly this loop, thousands of times per reply.</p>
+        <p>Deeper: Karpathy's <a href="https://www.youtube.com/watch?v=zduSFxRajkE" target="_blank" rel="noopener">Let's build the GPT Tokenizer</a> and the <a href="https://github.com/rasbt/LLMs-from-scratch" target="_blank" rel="noopener">Build an LLM (From Scratch)</a> repo.</p>
+      </details>
+    </div>
 
-      <div class="card">
-        <div class="tag">Transformers.js · ViT ~90MB</div>
-        <h3>Image classification</h3>
-        <div class="drop" id="img-drop">
-          <span>Drop an image or click to upload</span>
-          <input type="file" id="img-file" accept="image/*" hidden>
-        </div>
-        <div class="out" id="img-out"></div>
-        <details class="how">
-          <summary>What's happening here?</summary>
-          <p>ViT (Vision Transformer) chops your image into 16×16-pixel patches and treats them like words in a sentence: vision handled as language. The top-4 list you see is the model's actual probability distribution over its guesses, not a single verdict.</p>
-          <p>Deeper: the vision lectures in <a href="http://introtodeeplearning.com/" target="_blank" rel="noopener">MIT 6.S191</a> and <a href="https://cs231n.github.io/" target="_blank" rel="noopener">CS231n</a>.</p>
-        </details>
+    <div class="card" style="margin-top:18px">
+      <div class="tag">Plain arithmetic · no download</div>
+      <h3>Will it fit? The KV-cache calculator</h3>
+      <p class="note" style="margin:0 0 12px">Serving a model means holding its weights <em>and</em> a cache of keys and values for every token in every conversation. Pick a model and a workload and see where the memory goes.</p>
+      <div class="kv-grid">
+        <label>Model <select id="kv-model"></select></label>
+        <label>Context length <select id="kv-ctx"><option>2048</option><option selected>8192</option><option>32768</option><option>131072</option></select></label>
+        <label>Concurrent users <select id="kv-batch"><option selected>1</option><option>8</option><option>32</option><option>128</option></select></label>
+        <label>Weights <select id="kv-wbytes"><option value="2">16-bit</option><option value="1">8-bit</option><option value="0.5" selected>4-bit</option></select></label>
+        <label>Cache <select id="kv-cbytes"><option value="2" selected>16-bit</option><option value="1">8-bit</option></select></label>
+        <label>Hardware <select id="kv-gpu"><option value="24">1× 24GB (RTX 4090)</option><option value="80" selected>1× 80GB (H100)</option><option value="640">8× 80GB (H100 node)</option></select></label>
       </div>
+      <div class="out" id="kv-out"></div>
+      <details class="how">
+        <summary>What's happening here?</summary>
+        <p>Each layer stores a key and a value vector for every token so the model doesn't recompute the past. That cache grows with context × users, and at long context it outweighs the model itself. The architectures we've surveyed attack it directly: grouped-query attention (Llama 3, Mixtral) shares one key/value head across several query heads; DeepSeek's multi-head latent attention caches one small compressed vector instead. Mixture-of-experts models are the opposite trade: huge weights, but each token only runs through a slice of them.</p>
+        <p>Numbers ignore activations and framework overhead, so real headroom is a bit smaller. Deeper: <a href="https://arxiv.org/abs/2305.13245" target="_blank" rel="noopener">GQA</a>, <a href="https://arxiv.org/abs/2405.04434" target="_blank" rel="noopener">DeepSeek-V2 (MLA)</a>, and <a href="https://jax-ml.github.io/scaling-book/" target="_blank" rel="noopener">How to Scale Your Model</a>.</p>
+      </details>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <div class="tag">Transformers.js · MiniLM ~23MB</div>
+      <h3>Has the group covered that? Search 396 meetings</h3>
+      <p class="note" style="margin:0 0 12px">Every session from 2017 to 2024, searched by meaning rather than keywords. Try "protein folding", "playing games with RL", or "making art with neural nets".</p>
+      <div class="row" style="margin-top:0">
+        <input type="text" id="arc-in" placeholder="A topic, paper, or idea…" style="flex:1">
+        <button class="act" id="arc-run" style="margin-top:0">Search</button>
+      </div>
+      <div class="out" id="arc-out"></div>
+      <details class="how">
+        <summary>What's happening here?</summary>
+        <p>Each meeting's title and description was turned into a 384-number vector (an embedding) ahead of time. Your query gets the same treatment, here in your browser, and results are ranked by cosine similarity: how closely the two vectors point the same way. That's why a search can find "Minigo" for "playing games with RL" without the words matching. This is the retrieval half of every RAG system.</p>
+        <p>The full record, with a timeline and yearly chart: <a href="/history/">400 meetings, 2017–2024</a>.</p>
+      </details>
     </div>
 
     <div class="card" style="margin-top:18px">
