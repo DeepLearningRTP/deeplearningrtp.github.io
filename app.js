@@ -278,7 +278,7 @@ if ($("#arc-in")) {
           .slice(0, 6)
           .map(
             ([s, it]) =>
-              `<div class="hit"><div class="meta">${esc(it.d)} · ${esc(it.c)} · similarity ${s.toFixed(2)}</div><div class="t">${esc(it.t)}</div>${it.x ? `<p>${esc(it.x)}…</p>` : ""}</div>`,
+              `<div class="hit"><div class="meta">${esc(it.d)} · ${esc(it.c)} · similarity ${s.toFixed(2)}</div><div class="t">${it.u ? `<a href="${esc(it.u)}" target="_blank" rel="noopener">${esc(it.t)}</a>` : esc(it.t)}</div>${it.x ? `<p>${esc(it.x)}…</p>` : ""}</div>`,
           )
           .join("") +
         `<div class="note" style="margin-top:8px">Embedded your query and ranked ${ix.items.length} meetings in ${ms} ms, locally in this tab. <a href="/history/">Browse the full record →</a></div>`;

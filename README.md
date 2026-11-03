@@ -32,8 +32,8 @@ ops push (same job that publishes `/events/`). Edit event YAMLs in dlrtp-ops ins
 ## Demos
 Three live demos in `app.js`: next-token explorer (SmolLM2-135M), KV-cache calculator (plain
 arithmetic, presets in `MODELS`), and archive search (MiniLM). Archive search reads precomputed
-embeddings from `demos/archive-index.json`; if `history/` ever changes, rebuild it with
-`scripts/build-archive-index.mjs` (instructions at the top of that file). The model and dtype must match `app.js`.
+embeddings from `demos/archive-index.json`: the 2017–2024 `history/` record plus every later Meetup
+session. Rerun `scripts/build-archive-index.mjs` after new sessions to pick them up (instructions at the top of that file). The model and dtype must match `app.js`.
 
 **Backlog (agreed 2026-11-02, not built yet):**
 - **Harness in 50 lines.** Turn the WebLLM chat into a small agent that can call a calculator
