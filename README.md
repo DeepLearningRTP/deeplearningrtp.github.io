@@ -1,7 +1,7 @@
 # deeplearningrtp.github.io
 
 The website for the **[Deep Learning RTP](https://www.meetup.com/deep-learning-rtp/)** study
-group — live at **https://deeplearningrtp.github.io/**.
+group — live at **https://deeplearningrtp.org/**.
 
 A single static `index.html`: modern SPA, no build step, no framework, no backend. Its centerpiece
 is machine learning running **entirely in the visitor's browser** (fitting for a deep-learning group):
