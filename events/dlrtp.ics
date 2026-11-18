@@ -4,7 +4,7 @@ PRODID:-//dlrtp-ops//EN
 X-WR-CALNAME:Deep Learning RTP
 BEGIN:VEVENT
 UID:2026-07-15-deepseek-technical-report@dlrtp
-DTSTAMP:20261118T160000Z
+DTSTAMP:20261118T161723Z
 DTSTART:20260715T160000Z
 DTEND:20260715T180000Z
 SUMMARY:DLRTP Weekly — LLM Architecture in 2026 - DeepSeek Technical Repo
@@ -18,7 +18,7 @@ URL:https://www.meetup.com/deep-learning-rtp/
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-22-emergent-sparsity-frozen-random-cnn@dlrtp
-DTSTAMP:20261118T160000Z
+DTSTAMP:20261118T161723Z
 DTSTART:20260722T160000Z
 DTEND:20260722T180000Z
 SUMMARY:DLRTP Weekly — Emergent Sparsity in Frozen-Random-CNN Deep RL (Sc
@@ -36,7 +36,7 @@ URL:https://www.meetup.com/deep-learning-rtp/events/315516897/
 END:VEVENT
 BEGIN:VEVENT
 UID:2026-07-29-agents-lets-get-this-over-with@dlrtp
-DTSTAMP:20261118T160000Z
+DTSTAMP:20261118T161723Z
 DTSTART:20260729T160000Z
 DTEND:20260729T180000Z
 SUMMARY:DLRTP Weekly — Agents - Let's get this over with
@@ -48,10 +48,28 @@ DESCRIPTION:Paper review of Lilian Weng's "Harness Engineering for Self-Imp
 URL:https://www.meetup.com/deep-learning-rtp/events/315598882/
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-25-deep-learning-architectures-systems@dlrtp
-DTSTAMP:20261118T160000Z
-DTSTART:20261125T170000Z
-DTEND:20261125T183000Z
+UID:2026-11-18-decision-models-in-practice@dlrtp
+DTSTAMP:20261118T161723Z
+DTSTART:20261118T170000Z
+DTEND:20261118T183000Z
+SUMMARY:DLRTP Weekly — Decision Models in Practice
+LOCATION:Frontier RTP (Tarheels conference room)\, 800 Park Offices Dr\, Du
+ rham\, NC
+DESCRIPTION:Decision models in practice\, with Scott.\n\n"Decision model" i
+ s the new name for models that choose among answers instead of generating 
+ text. Scott will explain what the term covers\, then show a real case: on 
+ his Dog Walking Database project\, Google's Decision API turned hundreds o
+ f questionable categorizations into automatic assignment that's about 95% 
+ accurate.\n\nHe'll cover:\n\n* Why he picked Google's API over OpenAI's\n*
+  What it took to build\n* What's still unsolved\nRSVP: https://www.meetup.
+ com/deep-learning-rtp/events/317458643/
+URL:https://www.meetup.com/deep-learning-rtp/events/317458643/
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-02-deep-learning-architectures-systems@dlrtp
+DTSTAMP:20261118T161723Z
+DTSTART:20261202T170000Z
+DTEND:20261202T183000Z
 SUMMARY:DLRTP Weekly — Deep Learning Architectures & Systems
 LOCATION:Frontier RTP\, 800 Park Offices Dr\, Durham\, NC
 DESCRIPTION:Let's continue with our survey of developments since GPT-3.\n\n
